@@ -1,32 +1,30 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import { FaTimes } from 'react-icons/fa'
 import logo from '../images/logo.png'
 import { Link } from 'react-router-dom'
+import { useUser } from '../Context/UserContext'
 
 const Sidebar = () => {
-  const [sideBarOpen, setSideBarOpen] = useState(true)
+  const { sideBarOpen, closeSidebar } = useUser()
 
-  const LogOut = () => {
-    setSideBarOpen(false)
-  }
   return (
     <SidebarContainer>
       <aside className={sideBarOpen ? 'sidebar show-sidebar' : 'sidebar'}>
         <div className='sidebar-header'>
           <img src={logo} className='logo' alt='bug-tracker-app' />
-          <button className='close-btn' type='button' onClick={LogOut}>
+          <button className='close-btn' type='button' onClick={closeSidebar}>
             <FaTimes />
           </button>
         </div>
         <ul className='links'>
           <li>
-            <Link to='/' onClick={LogOut}>
+            <Link to='/' onClick={closeSidebar}>
               Home
             </Link>
           </li>
           <li>
-            <Link to='login' onClick={LogOut}>
+            <Link to='login' onClick={closeSidebar}>
               Sign In
             </Link>
           </li>

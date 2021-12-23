@@ -2,14 +2,17 @@ import React from 'react'
 import { RiMenuFill } from 'react-icons/ri'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
+import { useUser } from '../Context/UserContext'
 
 const Layout = ({ children }) => {
+  const { openSidebar } = useUser()
+
   return (
     <>
       <HeaderWrapper>
         <div className='main-header'>
           <h1>Silver Manager</h1>
-          <button type='button' className='sidebar-btn'>
+          <button type='button' className='sidebar-btn' onClick={openSidebar}>
             <RiMenuFill />
           </button>
         </div>
