@@ -5,8 +5,22 @@ const UserReducer = (state, action) => {
     case 'CLOSE_SIDEBAR':
       return { ...state, sideBarOpen: false }
     case 'SET_LOADING':
-      return { ...state, isLoading: true }
-
+      return { ...state, isUserLoading: true }
+    case 'REGISTER_SUCCESS':
+      return {
+        ...state,
+        isUserLoading: false,
+        user: { ...action.payload },
+        showAlert: false,
+        errorMsg: null,
+      }
+    case 'REGISTER_ERROR':
+      return {
+        ...state,
+        isUserLoading: false,
+        showAlert: true,
+        errorMsg: action.payload,
+      }
     default:
       return state
   }
