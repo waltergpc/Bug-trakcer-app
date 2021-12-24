@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import { useUser } from '../Context/UserContext'
 
 const Layout = ({ children }) => {
-  const { openSidebar } = useUser()
+  const { openSidebar, user } = useUser()
 
   return (
     <>
@@ -17,18 +17,33 @@ const Layout = ({ children }) => {
           </button>
         </div>
         <nav className='navbar'>
-          <ul className='nav-list'>
-            <li className='list-element'>
-              <Link to='/' className='nav-link'>
-                Home
-              </Link>
-            </li>
-            <li className='list-element'>
-              <Link to='login' className='nav-link'>
-                Sign in
-              </Link>
-            </li>
-          </ul>
+          {!user ? (
+            <ul className='nav-list'>
+              <li className='list-element'>
+                <Link to='/' className='nav-link'>
+                  Home
+                </Link>
+              </li>
+              <li className='list-element'>
+                <Link to='login' className='nav-link'>
+                  Sign in
+                </Link>
+              </li>
+            </ul>
+          ) : (
+            <ul className='nav-list'>
+              <li className='list-element'>
+                <Link to='dashboard' className='nav-link'>
+                  Dashboard
+                </Link>
+              </li>
+              <li className='list-element'>
+                <Link to='tickets' className='nav-link'>
+                  Ticket center
+                </Link>
+              </li>
+            </ul>
+          )}
         </nav>
       </HeaderWrapper>
       <MainWrapper>{children}</MainWrapper>

@@ -76,7 +76,6 @@ h2,
 h3,
 h4,
 h5 {
-  letter-spacing: var(--spacing);
   line-height: 1.25;
   margin-bottom: 0.75rem;
 }
@@ -111,17 +110,17 @@ h1 {
 
 /* section */
 .section {
-  padding: 5rem 0;
+  padding: 2.5rem 0;
 }
 .section-center {
   width: 90vw;
   margin: 0 auto;
-  max-width: var(--max-width);
+  /*max-width: var(--max-width);*/
 }
 
 @media screen and (min-width: 992px) {
   .section-center {
-    width: 95vw;
+    width: 70vw;
   }
 }
 .text-center {

@@ -1,6 +1,7 @@
 import React, { useReducer, createContext, useContext } from 'react'
 import Reducer from '../Reducers/UserReducer'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 const UserContext = createContext()
 
@@ -17,6 +18,7 @@ const initialState = {
 
 export const UserProvider = ({ children }) => {
   const [state, dispatch] = useReducer(Reducer, initialState)
+  let navigate = useNavigate()
 
   const openSidebar = () => {
     dispatch({ type: 'OPEN_SIDEBAR' })
@@ -48,6 +50,7 @@ export const UserProvider = ({ children }) => {
       const { data } = await axios.post('/auth/login', { ...user })
       console.log(data)
       dispatch({ type: 'REGISTER_SUCCESS', payload: data.user })
+      navigate('/dashboard')
     } catch (error) {
       console.log(error.response)
       dispatch({ type: 'REGISTER_ERROR', payload: error.response.data.msg })
