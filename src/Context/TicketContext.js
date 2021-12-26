@@ -17,6 +17,10 @@ const initialState = {
 export const TicketProvider = ({ children }) => {
   const [state, dispatch] = useReducer(Reducer, initialState)
 
+  const setTicketLoading = () => {
+    dispatch({ type: 'SET_TICKET_LOADING' })
+  }
+
   const fetchTickets = async (id) => {
     try {
       const { data } = await axios.get('/tickets')
@@ -34,6 +38,7 @@ export const TicketProvider = ({ children }) => {
   const createTicket = async (ticket) => {
     try {
       const data = await axios.post('/tickets', { ...ticket })
+      console.log(data)
       fetchTickets()
     } catch (error) {
       console.log(error)
@@ -42,6 +47,7 @@ export const TicketProvider = ({ children }) => {
 
   const deleteTicket = async (id) => {
     try {
+      setTicketLoading()
       const { data } = await axios.delete(`/tickets/${id}`)
       console.log(data)
     } catch (error) {

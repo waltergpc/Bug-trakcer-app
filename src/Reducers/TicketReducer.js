@@ -1,5 +1,7 @@
 const TicketReducer = (state, action) => {
   switch (action.type) {
+    case 'SET_TICKET_LOADING':
+      return { ...state, isTicketsLoading: true }
     case 'GET_ALL_TICKETS_SUCCESS':
       return {
         ...state,
