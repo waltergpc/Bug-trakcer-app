@@ -3,7 +3,7 @@ import { useUser } from '../Context/UserContext'
 import { Navigate } from 'react-router-dom'
 import TicketForm from '../Components/TicketForm'
 
-const CreateTicket = () => {
+const UpdateTicket = () => {
   const { user } = useUser()
 
   if (!user) return <Navigate to='/' />
@@ -11,4 +11,4 @@ const CreateTicket = () => {
   return <TicketForm />
 }
 
-export default CreateTicket
+export default UpdateTicket

@@ -14,9 +14,6 @@ const OwnTicket = ({
   category,
   createdBy,
 }) => {
-  console.log(userId)
-  console.log(createdBy)
-
   let date = moment(updatedAt)
   date = date.format('L')
   return (
@@ -36,7 +33,9 @@ const OwnTicket = ({
           ? 'Created By you'
           : 'Assigned to you'}
       </p>
-      <TicketButtons id={id} />
+      <div className='ticket-btns'>
+        <TicketButtons id={id} />
+      </div>
     </Wrapper>
   )
 }
@@ -70,6 +69,18 @@ const Wrapper = styled.article`
   .created-by {
     grid-column: 1 / 3;
     font-weight: bold;
+  }
+
+  .ticket-btns {
+    grid-column: 1 / 3;
+  }
+
+  @media (min-width: 900px) {
+    .description {
+      display: inline-block;
+      grid-column: 1 / 3;
+      font-size: 0.8rem;
+    }
   }
 `
 

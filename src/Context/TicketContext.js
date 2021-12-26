@@ -1,6 +1,8 @@
 import React, { useReducer, createContext, useContext } from 'react'
 import axios from 'axios'
 import Reducer from '../Reducers/TicketReducer'
+import { useUser } from './UserContext'
+import { useNavigate } from 'react-router-dom'
 
 const TicketContext = createContext()
 
@@ -16,12 +18,15 @@ const initialState = {
 
 export const TicketProvider = ({ children }) => {
   const [state, dispatch] = useReducer(Reducer, initialState)
+  const { user } = useUser()
+  let navigate = useNavigate()
 
   const setTicketLoading = () => {
     dispatch({ type: 'SET_TICKET_LOADING' })
   }
 
   const fetchTickets = async (id) => {
+    setTicketLoading()
     try {
       const { data } = await axios.get('/tickets')
       console.log(data)
@@ -40,24 +45,45 @@ export const TicketProvider = ({ children }) => {
       const data = await axios.post('/tickets', { ...ticket })
       console.log(data)
       fetchTickets()
+      navigate('/tickets')
     } catch (error) {
+      dispatch({ type: 'TICKET_ERROR' })
       console.log(error)
     }
   }
 
   const deleteTicket = async (id) => {
+    setTicketLoading()
     try {
-      setTicketLoading()
-      const { data } = await axios.delete(`/tickets/${id}`)
-      console.log(data)
+      await axios.delete(`/tickets/${id}`)
+      fetchTickets(user.userId)
     } catch (error) {
+      console.log(error.response)
+      dispatch({ type: 'TICKET_ERROR' })
+    }
+  }
+
+  const updateTicket = async (id, ticket) => {
+    setTicketLoading()
+    try {
+      const { data } = await axios.patch(`/tickets/${id}`, { ...ticket })
+      console.log(data)
+      fetchTickets(user.userId)
+    } catch (error) {
+      dispatch({ type: 'TICKET_ERROR' })
       console.log(error.response)
     }
   }
 
   return (
     <TicketContext.Provider
-      value={{ ...state, fetchTickets, createTicket, deleteTicket }}
+      value={{
+        ...state,
+        fetchTickets,
+        createTicket,
+        deleteTicket,
+        updateTicket,
+      }}
     >
       {children}
     </TicketContext.Provider>

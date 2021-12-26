@@ -1,8 +1,8 @@
-const filterTickets = (tickets, status) => {
+const filterTicketsStatus = (tickets, status) => {
   let toFilter = [...tickets]
   return toFilter.filter((ticket) => {
     return ticket.status === status
   })
 }
 
-export default filterTickets
+export { filterTicketsStatus }

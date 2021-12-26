@@ -7,14 +7,12 @@ const TicketReducer = (state, action) => {
         ...state,
         isTicketLoading: false,
         tickets: [...action.payload.tickets],
-        ownTickets: [
-          ...action.payload.tickets.filter((ticket) => {
-            return (
-              ticket.createdBy._id === action.payload.id ||
-              ticket.assignedTo.includes(action.payload.id)
-            )
-          }),
-        ],
+        ownTickets: action.payload.tickets.filter((ticket) => {
+          return (
+            ticket.createdBy._id === action.payload.id ||
+            ticket.assignedTo.includes(action.payload.id)
+          )
+        }),
       }
     case 'GET_ALL_TICKETS_ERROR':
       return {
@@ -23,6 +21,15 @@ const TicketReducer = (state, action) => {
         isTicketsLoading: false,
         showAlert: true,
         ticketErrorMsg: action.payload,
+      }
+
+    case 'TICKET_ERROR':
+      return {
+        ...state,
+        isTicketsLoading: false,
+        showAlert: true,
+        ticketErrorMsg:
+          'There was an error with the operation, please refrsh and try again',
       }
     default:
       return state

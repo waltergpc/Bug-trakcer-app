@@ -9,6 +9,7 @@ import OwnTicket from '../Components/OwnTicket'
 const Dashboard = () => {
   const { user } = useUser()
   const { fetchTickets, ownTickets } = useTickets()
+  console.log(ownTickets)
 
   useEffect(() => {
     if (user) {

@@ -15,7 +15,7 @@ const TicketButtons = ({ id }) => {
       >
         <MdDeleteForever />
       </button>
-      <Link to='/create-ticket' className='update-btn'>
+      <Link to={`/update-ticket/${id}`} className='update-btn'>
         <MdModeEdit />
       </Link>
     </Wrapper>
@@ -28,7 +28,6 @@ const Wrapper = styled.div`
   flex-direction: row;
   justify-content: space-evenly;
   font-size: 1.5rem;
-  grid-column: 1 / 3;
 
   .delete-btn {
     background-color: transparent;
