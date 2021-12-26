@@ -26,12 +26,33 @@ export const TicketProvider = ({ children }) => {
         payload: { tickets: data.tickets, id },
       })
     } catch (error) {
+      dispatch({ type: 'GET_ALL_TICKETS_ERROR', payload: error.response.msg })
+      console.log(error.response)
+    }
+  }
+
+  const createTicket = async (ticket) => {
+    try {
+      const data = await axios.post('/tickets', { ...ticket })
+      fetchTickets()
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const deleteTicket = async (id) => {
+    try {
+      const { data } = await axios.delete(`/tickets/${id}`)
+      console.log(data)
+    } catch (error) {
       console.log(error.response)
     }
   }
 
   return (
-    <TicketContext.Provider value={{ ...state, fetchTickets }}>
+    <TicketContext.Provider
+      value={{ ...state, fetchTickets, createTicket, deleteTicket }}
+    >
       {children}
     </TicketContext.Provider>
   )

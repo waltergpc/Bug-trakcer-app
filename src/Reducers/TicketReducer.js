@@ -14,6 +14,14 @@ const TicketReducer = (state, action) => {
           }),
         ],
       }
+    case 'GET_ALL_TICKETS_ERROR':
+      return {
+        ...state,
+        user: null,
+        isTicketsLoading: false,
+        showAlert: true,
+        ticketErrorMsg: action.payload,
+      }
     default:
       return state
   }

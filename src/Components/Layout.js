@@ -42,6 +42,11 @@ const Layout = ({ children }) => {
                   Ticket center
                 </Link>
               </li>
+              <li className='list-element'>
+                <Link to='create-ticket' className='nav-link'>
+                  New Ticket
+                </Link>
+              </li>
             </ul>
           )}
         </nav>
