@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
 import { useTickets } from '../Context/TicketContext'
 import axios from 'axios'
+import { Navigate } from 'react-router-dom'
 
-const TicketForm = () => {
-  const { id } = useParams()
+const TicketForm = ({ id, user }) => {
   const { createTicket, updateTicket } = useTickets()
   const [newTicket, setNewTicket] = useState({
     title: '',
@@ -17,7 +16,12 @@ const TicketForm = () => {
     if (id) {
       const getSingleTicket = async () => {
         const { data } = await axios.get(`/tickets/${id}`)
-        console.log(data)
+        if (data.ticket.createdBy._id !== user.userId) {
+          return <Navigate to='/dashboard' />
+        }
+        if (!user.role === ('admin' || 'leader')) {
+          return <Navigate to='/dashboard' />
+        }
         setNewTicket({
           title: data.ticket.title,
           description: data.ticket.description,
@@ -28,6 +32,7 @@ const TicketForm = () => {
       }
       getSingleTicket()
     }
+    // eslint-disable-next-line
   }, [id])
 
   const handleChange = (e) => {

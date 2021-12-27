@@ -1,6 +1,5 @@
 const filterTicketsStatus = (tickets, status) => {
-  let toFilter = [...tickets]
-  return toFilter.filter((ticket) => {
+  return tickets.filter((ticket) => {
     return ticket.status === status
   })
 }
