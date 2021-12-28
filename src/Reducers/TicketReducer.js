@@ -43,6 +43,12 @@ const TicketReducer = (state, action) => {
         ticketErrorMsg:
           'There was an error with the operation, please refrsh and try again',
       }
+
+    case 'START_UPDATE':
+      return { ...state, editTicketComplete: false }
+
+    case 'END_UPDATE':
+      return { ...state, editTicketComplete: true }
     default:
       return state
   }

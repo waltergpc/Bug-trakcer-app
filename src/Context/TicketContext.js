@@ -16,6 +16,7 @@ const initialState = {
   singleTicket: null,
   showAlert: false,
   ticketErrorMsg: null,
+  editTicketComplete: false,
 }
 
 export const TicketProvider = ({ children }) => {
@@ -80,12 +81,23 @@ export const TicketProvider = ({ children }) => {
     }
   }
 
+  const startTicketUpdate = () => {
+    console.log('starting update')
+    dispatch({ type: 'START_UPDATE' })
+  }
+
+  const endTicketUpdate = () => {
+    console.log('ending update')
+    dispatch({ type: 'END_UPDATE' })
+  }
+
   const updateTicket = async (id, ticket) => {
     setTicketLoading()
     try {
       const { data } = await axios.patch(`/tickets/${id}`, { ...ticket })
       console.log(data)
       fetchTickets(user.userId)
+      endTicketUpdate()
     } catch (error) {
       dispatch({ type: 'TICKET_ERROR' })
       console.log(error.response)
@@ -132,6 +144,7 @@ export const TicketProvider = ({ children }) => {
         createTicket,
         deleteTicket,
         updateTicket,
+        startTicketUpdate,
         createComment,
         deleteComment,
         updateComment,

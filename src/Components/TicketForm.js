@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { useTickets } from '../Context/TicketContext'
 import axios from 'axios'
-import { Navigate } from 'react-router-dom'
+import { Navigate, Link } from 'react-router-dom'
+import styled from 'styled-components'
 
 const TicketForm = ({ id, user }) => {
-  const { createTicket, updateTicket } = useTickets()
+  const { createTicket, updateTicket, editTicketComplete, startTicketUpdate } =
+    useTickets()
   const [newTicket, setNewTicket] = useState({
     title: '',
     description: '',
@@ -30,6 +32,7 @@ const TicketForm = ({ id, user }) => {
           category: data.ticket.category,
         })
       }
+      startTicketUpdate()
       getSingleTicket()
     }
     // eslint-disable-next-line
@@ -56,16 +59,18 @@ const TicketForm = ({ id, user }) => {
     })
   }
   return (
-    <form onSubmit={handleTicketSubmit}>
+    <FormWrapper onSubmit={handleTicketSubmit}>
       <label>Ticket Title</label>
       <input
         type='text'
         name='title'
         value={newTicket.title}
         onChange={handleChange}
+        className='title-input'
       />
       <label>Description</label>
       <textarea
+        className='description-input'
         name='description'
         value={newTicket.description}
         onChange={handleChange}
@@ -73,6 +78,7 @@ const TicketForm = ({ id, user }) => {
       <label>Priority</label>
       <select
         name='priority'
+        className='priority-input'
         value={newTicket.priority}
         onChange={handleChange}
       >
@@ -81,7 +87,12 @@ const TicketForm = ({ id, user }) => {
         <option value='low'>Low</option>
       </select>
       <label>Status</label>
-      <select name='status' value={newTicket.status} onChange={handleChange}>
+      <select
+        name='status'
+        value={newTicket.status}
+        onChange={handleChange}
+        className='status-input'
+      >
         <option value='new'>new</option>
         <option value='in progress'>In progress</option>
         <option value='solved'>Solved</option>
@@ -91,6 +102,7 @@ const TicketForm = ({ id, user }) => {
       <label>Category</label>
       <select
         name='category'
+        className='category-input'
         value={newTicket.category}
         onChange={handleChange}
       >
@@ -99,9 +111,116 @@ const TicketForm = ({ id, user }) => {
         <option value='Miscelleanous'>Miscelleanous</option>
         <option value='Design'>Design</option>
       </select>
-      <button type='submit'>Save Ticket</button>
-    </form>
+      <button type='submit' className='submit-btn'>
+        Save Ticket
+      </button>
+      {id && (
+        <div>
+          {!editTicketComplete ? (
+            <span className='no-update'>Update hasn't been submitted</span>
+          ) : (
+            <div className='updated-div'>
+              <span className='updated'>Update Submitted</span>
+              <Link className='update-link' to='/dashboard'>
+                Dashboard
+              </Link>
+              <Link className='update-link' to='/tickets'>
+                Ticket center
+              </Link>
+              <Link className='update-link' to={`/tickets/${id}`}>
+                Ticket updated
+              </Link>
+            </div>
+          )}
+        </div>
+      )}
+    </FormWrapper>
   )
 }
 
 export default TicketForm
+
+const FormWrapper = styled.form`
+  display: grid;
+  padding: 0.5rem;
+  gap: 0.5rem;
+
+  label {
+    font-weight: 600;
+  }
+
+  .title-input {
+    outline: none;
+    border-width: 0 1px 1px 0;
+    border-color: rgba(0, 0, 0, 0.7);
+    transition: var(--transition);
+    height: 2rem;
+  }
+
+  .title-input:focus {
+    border-color: rgba(0, 0, 0, 1);
+  }
+
+  .description-input {
+    height: 5rem;
+    outline: none;
+  }
+
+  .submit-btn {
+    margin-top: 1rem;
+    background-color: rgb(168, 105, 0);
+    font-weight: bold;
+    color: #fbf4f1;
+    border: none;
+    border-radius: 0.3rem;
+    cursor: pointer;
+    transition: var(--transition);
+  }
+
+  .submit-btn:hover {
+    transform: scale(1.03);
+  }
+
+  .no-update {
+    margin-top: 1.5rem;
+    color: red;
+    font-weight: bold;
+    font-size: 0.8rem;
+    text-align: center;
+  }
+
+  .updated-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+    font-size: 0.7rem;
+    flex-wrap: wrap;
+  }
+
+  .updated {
+    font-weight: bold;
+    color: forestgreen;
+  }
+
+  .update-link {
+    margin-top: 1.5rem;
+    color: Navy;
+    font-weight: bold;
+  }
+
+  @media (min-width: 900px) {
+    select {
+      height: 1.5rem;
+    }
+    .submit-btn {
+      width: fit-content;
+      height: 2rem;
+      justify-self: center;
+    }
+    .updated-div {
+      font-size: 1rem;
+    }
+  }
+`
