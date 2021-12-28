@@ -12,6 +12,8 @@ const initialState = {
   tickets: [],
   ownTickets: [],
   isTicketsLoading: false,
+  singleTicketLoading: false,
+  singleTicket: null,
   showAlert: false,
   ticketErrorMsg: null,
 }
@@ -23,6 +25,10 @@ export const TicketProvider = ({ children }) => {
 
   const setTicketLoading = () => {
     dispatch({ type: 'SET_TICKET_LOADING' })
+  }
+
+  const setSingleTicketLoading = () => {
+    dispatch({ type: 'SET_SINGLE_TICKET_LOADING' })
   }
 
   const fetchTickets = async (id) => {
@@ -37,6 +43,17 @@ export const TicketProvider = ({ children }) => {
     } catch (error) {
       dispatch({ type: 'GET_ALL_TICKETS_ERROR', payload: error.response.msg })
       console.log(error.response)
+    }
+  }
+
+  const fetchSingleTicket = async (id) => {
+    setSingleTicketLoading()
+    try {
+      const { data } = await axios.get(`/tickets/${id}`)
+      console.log(data)
+      dispatch({ type: 'GET_SINGLE_TICKET_SUCCESS', payload: data })
+    } catch (error) {
+      console.log(error)
     }
   }
 
@@ -75,14 +92,28 @@ export const TicketProvider = ({ children }) => {
     }
   }
 
+  const createComment = async (ticketId, comment) => {
+    try {
+      await axios.post('/comments', {
+        ...comment,
+        ticket: ticketId,
+      })
+      fetchSingleTicket(ticketId)
+    } catch (error) {
+      console.log(error.response)
+    }
+  }
+
   return (
     <TicketContext.Provider
       value={{
         ...state,
         fetchTickets,
+        fetchSingleTicket,
         createTicket,
         deleteTicket,
         updateTicket,
+        createComment,
       }}
     >
       {children}

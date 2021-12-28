@@ -7,6 +7,7 @@ import Home from './Pages/Home'
 import Login from './Pages/Login'
 import CreateTicket from './Pages/CreateTicket'
 import UpdateTicket from './Pages/UpdateTicket'
+import SingleTicket from './Pages/SingleTicket'
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path='login' element={<Login />} />
         <Route path='dashboard' element={<Dashboard />} />
         <Route path='tickets' element={<Tickets />} />
+        <Route path='tickets/:id' element={<SingleTicket />} />
         <Route path='create-ticket' element={<CreateTicket />} />
         <Route path='update-ticket/:id' element={<UpdateTicket />} />
       </Routes>

@@ -2,6 +2,9 @@ const TicketReducer = (state, action) => {
   switch (action.type) {
     case 'SET_TICKET_LOADING':
       return { ...state, isTicketsLoading: true }
+    case 'SET_SINGLE_TICKET_LOADING':
+      return { ...state, singleTicketLoading: true }
+
     case 'GET_ALL_TICKETS_SUCCESS':
       return {
         ...state,
@@ -13,6 +16,15 @@ const TicketReducer = (state, action) => {
             ticket.assignedTo.includes(action.payload.id)
           )
         }),
+      }
+    case 'GET_SINGLE_TICKET_SUCCESS':
+      return {
+        ...state,
+        singleTicketLoading: false,
+        singleTicket: {
+          ticket: { ...action.payload.ticket },
+          comments: [...action.payload.comments],
+        },
       }
     case 'GET_ALL_TICKETS_ERROR':
       return {

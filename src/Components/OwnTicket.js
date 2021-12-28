@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import moment from 'moment'
 import TicketButtons from './TicketButtons'
+import { Link } from 'react-router-dom'
 
 const OwnTicket = ({
   id,
@@ -18,7 +19,9 @@ const OwnTicket = ({
   date = date.format('L')
   return (
     <Wrapper>
-      <h5 className='title'>{title}</h5>
+      <Link to={`/tickets/${id}`} className='title'>
+        {title}
+      </Link>
       <p className='description'>{description}</p>
       <p className='spec-title'>Priorirty:</p>
       <p> {priority}</p>
