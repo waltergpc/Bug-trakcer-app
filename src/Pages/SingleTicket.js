@@ -32,13 +32,20 @@ const SingleTicket = () => {
           <h5>No comments for this ticket</h5>
         ) : (
           comments.map((comm) => {
-            const { _id: commentId, title, comment, user, updatedAt } = comm
+            const {
+              _id: commentId,
+              title,
+              comment,
+              user: createdBy,
+              updatedAt,
+            } = comm
             return (
               <Comment
                 key={commentId}
+                id={commentId}
                 title={title}
                 comment={comment}
-                user={user}
+                createdBy={createdBy}
                 updatedAt={updatedAt}
               />
             )

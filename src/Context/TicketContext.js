@@ -104,6 +104,25 @@ export const TicketProvider = ({ children }) => {
     }
   }
 
+  const deleteComment = async (commentId, ticketId) => {
+    try {
+      await axios.delete(`/comments/${commentId}`)
+      fetchSingleTicket(ticketId)
+    } catch (error) {
+      console.log(error.response)
+    }
+  }
+
+  const updateComment = async (commentId, comment, ticketId) => {
+    try {
+      const data = await axios.patch(`/comments/${commentId}`, { ...comment })
+      console.log(data)
+      fetchSingleTicket(ticketId)
+    } catch (error) {
+      console.log(error.response)
+    }
+  }
+
   return (
     <TicketContext.Provider
       value={{
@@ -114,6 +133,8 @@ export const TicketProvider = ({ children }) => {
         deleteTicket,
         updateTicket,
         createComment,
+        deleteComment,
+        updateComment,
       }}
     >
       {children}
