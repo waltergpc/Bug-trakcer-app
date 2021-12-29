@@ -59,6 +59,9 @@ const Wrapper = styled.article`
   }
   .title {
     grid-column: 1 / 3;
+    font-size: 0.9rem;
+    font-weight: bold;
+    margin-bottom: 0.3rem;
   }
 
   .description {
@@ -83,6 +86,9 @@ const Wrapper = styled.article`
       display: inline-block;
       grid-column: 1 / 3;
       font-size: 0.8rem;
+    }
+    .title {
+      font-size: 1rem;
     }
   }
 `

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useTickets } from '../Context/TicketContext'
 import axios from 'axios'
+import styled from 'styled-components'
 
 const CommentForm = ({ ticketId, editId, turnEdit }) => {
   const { createComment, updateComment } = useTickets()
@@ -37,22 +38,58 @@ const CommentForm = ({ ticketId, editId, turnEdit }) => {
     setNewComment({ ...newComment, [e.target.name]: e.target.value })
   }
   return (
-    <form className='comment-form' onSubmit={handleSubmit}>
+    <FormWrapper className='comment-form' onSubmit={handleSubmit}>
+      <h4>Add a Comment</h4>
       <input
         type='text'
         name='title'
+        className='comment-title'
+        placeholder='Comment title'
         onChange={handleChange}
         value={newComment.title}
       />
-      <input
-        type='text'
+      <textarea
         name='comment'
+        className='comment-body'
         onChange={handleChange}
+        placeholder='Comment body'
         value={newComment.comment}
       />
-      <button type='submit'>Submit Comment</button>
-    </form>
+      <button type='submit' className='submit-comment'>
+        Submit Comment
+      </button>
+    </FormWrapper>
   )
 }
 
 export default CommentForm
+
+const FormWrapper = styled.form`
+  display: grid;
+  padding: 0.5rem;
+  gap: 0.5rem;
+
+  .comment-body,
+  .comment-title {
+    outline: none;
+  }
+
+  .submit-comment {
+    background-color: navy;
+    color: white;
+    font-weight: bold;
+    border-radius: 0.3rem;
+    border: none;
+    cursor: pointer;
+  }
+
+  @media (min-width: 900px) {
+    .comment-body {
+      height: 4rem;
+    }
+    .submit-comment {
+      width: fit-content;
+      height: 2rem;
+    }
+  }
+`

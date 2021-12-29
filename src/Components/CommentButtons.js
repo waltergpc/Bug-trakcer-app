@@ -36,7 +36,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
-  font-size: 1.5rem;
+  font-size: 1.7rem;
 
   .delete-btn {
     background-color: transparent;
@@ -45,6 +45,13 @@ const Wrapper = styled.div`
     margin: none;
     font-size: 1.5rem;
     cursor: pointer;
+  }
+
+  .update-btn {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 1.3rem;
   }
   a:link,
   a:visited {
