@@ -111,7 +111,7 @@ const TicketForm = ({ id, user }) => {
         <option value='Miscelleanous'>Miscelleanous</option>
         <option value='Design'>Design</option>
       </select>
-      <button type='submit' className='submit-btn'>
+      <button type='submit' className='submit-btn' disabled={!newTicket.title}>
         Save Ticket
       </button>
       {id && (
@@ -179,6 +179,10 @@ const FormWrapper = styled.form`
 
   .submit-btn:hover {
     transform: scale(1.03);
+  }
+
+  .submit-btn:disabled {
+    opacity: 0.5;
   }
 
   .no-update {

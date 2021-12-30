@@ -14,11 +14,17 @@ const initialState = {
   isUserLoading: false,
   showAlert: false,
   errorMsg: null,
+  team: [],
 }
 
 export const UserProvider = ({ children }) => {
   const [state, dispatch] = useReducer(Reducer, initialState)
   let navigate = useNavigate()
+
+  const getUsers = async () => {
+    const { data } = await axios.get('/users')
+    dispatch({ type: 'GET_USERS', payload: data.users })
+  }
 
   const openSidebar = () => {
     dispatch({ type: 'OPEN_SIDEBAR' })
@@ -65,6 +71,7 @@ export const UserProvider = ({ children }) => {
         setUserLoading,
         login,
         register,
+        getUsers,
       }}
     >
       {children}

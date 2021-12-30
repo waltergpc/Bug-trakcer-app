@@ -7,14 +7,19 @@ import styled from 'styled-components'
 import OwnTicket from '../Components/OwnTicket'
 
 const Dashboard = () => {
-  const { user } = useUser()
+  const { user, getUsers } = useUser()
   const { fetchTickets, ownTickets } = useTickets()
-  console.log(ownTickets)
+  //console.log(ownTickets)
 
   useEffect(() => {
     if (user) {
       fetchTickets(user.userId)
     }
+    // eslint-disable-next-line
+  }, [])
+
+  useEffect(() => {
+    getUsers()
     // eslint-disable-next-line
   }, [])
 

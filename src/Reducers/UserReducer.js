@@ -21,6 +21,8 @@ const UserReducer = (state, action) => {
         showAlert: true,
         errorMsg: action.payload,
       }
+    case 'GET_USERS':
+      return { ...state, team: [...action.payload] }
     default:
       return state
   }

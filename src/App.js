@@ -8,6 +8,8 @@ import Login from './Pages/Login'
 import CreateTicket from './Pages/CreateTicket'
 import UpdateTicket from './Pages/UpdateTicket'
 import SingleTicket from './Pages/SingleTicket'
+import Team from './Pages/Team'
+import NotFound from './Pages/NotFound'
 
 function App() {
   return (
@@ -21,6 +23,8 @@ function App() {
         <Route path='tickets/:id' element={<SingleTicket />} />
         <Route path='create-ticket' element={<CreateTicket />} />
         <Route path='update-ticket/:id' element={<UpdateTicket />} />
+        <Route path='/my-team' element={<Team />} />
+        <Route path='*' element={<NotFound />} />
       </Routes>
     </Layout>
   )
