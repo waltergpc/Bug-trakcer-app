@@ -6,10 +6,13 @@ import { useTickets } from '../Context/TicketContext'
 import Comment from '../Components/Comment'
 import styled from 'styled-components'
 import moment from 'moment'
+import AssignTicketInput from '../Components/AssignTicketInput'
+import { RiDeleteBack2Line } from 'react-icons/ri'
 
 const SingleTicket = () => {
   const { user } = useUser()
-  const { fetchSingleTicket, singleTicket, deleteTicket } = useTickets()
+  const { fetchSingleTicket, singleTicket, deleteTicket, unAssignTicket } =
+    useTickets()
   const { id } = useParams()
   const [confirmDelete, setConfirmDelete] = useState(false)
   let navigate = useNavigate()
@@ -42,17 +45,37 @@ const SingleTicket = () => {
       <div className='ticket-info'>
         <h4 className='ticket-title'>{ticket.title}</h4>
         <p className='ticket-created-by'>
-          Created by: {ticket.createdBy.name}{' '}
+          <span className='ticket-spec'>Created by:</span>
+          {ticket.createdBy.name}
         </p>
-        <p>
-          Assigned:
+        <div>
+          <span className='ticket-spec'>Assigned:</span>
           {ticket.assignedTo.length < 1 ? (
             <span> Assignation Pending</span>
           ) : (
-            ticket.assignedTo.map((dev) => <span>{dev.name}</span>)
+            ticket.assignedTo.map((dev) => (
+              <div className='assigned-to' key={dev._id}>
+                <span>{dev.name}</span>
+                {user.role === ('admin' || 'leader') && (
+                  <span>
+                    <button
+                      type='button'
+                      className='unassign-btn'
+                      onClick={() => unAssignTicket(id, dev._id)}
+                    >
+                      <RiDeleteBack2Line />
+                    </button>
+                  </span>
+                )}
+              </div>
+            ))
           )}
+        </div>
+        <p className='ticket-date'>
+          <span className='ticket-spec'>Last Update:</span> {date}
         </p>
-        <p className='ticket-date'>Last Update: {date}</p>
+
+        {user.role === ('admin' || 'leader') && <AssignTicketInput id={id} />}
         <p className='ticket-description'>{ticket.description} </p>
         {(singleTicket.ticket.createdBy._id === user.userId ||
           user.role === 'admin' ||
@@ -132,7 +155,7 @@ const Wrapper = styled.section`
   }
   .ticket-info {
     margin: 1rem;
-    padding: 1rem;
+    padding: 2rem;
     text-align: center;
     display: grid;
     gap: 1rem;
@@ -147,9 +170,28 @@ const Wrapper = styled.section`
     border-bottom: 2px solid lightgray;
   }
 
+  .ticket-spec {
+    font-weight: bold;
+  }
+
+  .assigned-to {
+    margin-top: 0.5rem;
+  }
+
+  .unassign-btn {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    font-size: 0.9rem;
+  }
+
+  .unassign-btn:hover {
+    color: darkred;
+  }
+
   .ticket-operations {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-around;
     flex-wrap: wrap;
   }
 
@@ -197,6 +239,7 @@ const Wrapper = styled.section`
   @media (min-width: 900px) {
     .ticket-info {
       grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
 
       p {
         font-size: 1rem;

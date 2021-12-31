@@ -1,55 +1,76 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useUser } from '../Context/UserContext'
 import { Navigate } from 'react-router-dom'
+import styled from 'styled-components'
+import UserArticle from '../Components/UserArticle'
 
 const Team = () => {
-  const { user, team } = useUser()
-  const [teamDisplayed, setTeamDisplayed] = useState('all')
-  console.log(team)
+  const { user, team, getUsers } = useUser()
+  const [teamDisplayed, setTeamDisplayed] = useState('All')
+  const [assignMsg, setAssignMsg] = useState(null)
+
+  useEffect(() => {
+    getUsers()
+    // eslint-disable-next-line
+  }, [])
 
   if (!user) return <Navigate to='/' />
-
-  if (team.length < 1) {
-    return <h3>No users to show</h3>
-  }
 
   const filterByTeam = (users, team, user) => {
     let filteredUsers
     if (!user.role === 'admin') return users
-    if (team === 'all') return users
+    if (team === 'All') return users
     filteredUsers = users.filter((mem) => {
       return mem.team === team
     })
     return filteredUsers
   }
 
-  console.log(user.role)
-  console.log(teamDisplayed)
   return (
-    <div>
+    <Wrapper>
+      <h3>
+        {user.role === 'admin'
+          ? `${teamDisplayed} Users`
+          : `${user.team} Users`}
+      </h3>
+      {assignMsg && <h5>{assignMsg}</h5>}
+
       {user.role === 'admin' && (
         <select
           value={teamDisplayed}
           onChange={(e) => setTeamDisplayed(e.target.value)}
         >
-          <option value='all'>All</option>
+          <option value='All'>All</option>
           <option value='Betos'>Betos</option>
           <option value='Aslan'>Aslan</option>
           <option value='none'>Not Assigned</option>
         </select>
       )}
-      {filterByTeam(team, teamDisplayed, user).map((member) => {
-        const { _id: id, name, email, team: memberTeam } = member
-        return (
-          <article key={id}>
-            <span>Name:{name}</span>
-            <span>Email:{email}</span>
-            {user.role === 'admin' && <span>Team:{memberTeam} </span>}
-          </article>
-        )
-      })}
-    </div>
+      <div className='users-list'>
+        {filterByTeam(team, teamDisplayed, user).map((member) => {
+          const { _id: id, name, email } = member
+          return (
+            <UserArticle
+              key={id}
+              name={name}
+              email={email}
+              id={id}
+              setAssignMsg={setAssignMsg}
+            />
+          )
+        })}
+      </div>
+    </Wrapper>
   )
 }
 
 export default Team
+
+const Wrapper = styled.section`
+  text-align: center;
+  .users-list {
+    margin: 1rem;
+    display: grid;
+    gap: 1rem;
+  }
+`

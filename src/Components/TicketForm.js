@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useTickets } from '../Context/TicketContext'
 import axios from 'axios'
-import { Navigate, Link } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 const TicketForm = ({ id, user }) => {
@@ -14,15 +14,16 @@ const TicketForm = ({ id, user }) => {
     status: 'new',
     category: 'UX',
   })
+  let navigate = useNavigate()
   useEffect(() => {
     if (id) {
       const getSingleTicket = async () => {
         const { data } = await axios.get(`/tickets/${id}`)
-        if (data.ticket.createdBy._id !== user.userId) {
-          return <Navigate to='/dashboard' />
-        }
-        if (!user.role === ('admin' || 'leader')) {
-          return <Navigate to='/dashboard' />
+        if (
+          !data.ticket.createdBy._id === user.userId ||
+          !user.role === ('admin' || 'leader')
+        ) {
+          navigate('/dashboard')
         }
         setNewTicket({
           title: data.ticket.title,

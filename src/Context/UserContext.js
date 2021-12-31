@@ -23,6 +23,7 @@ export const UserProvider = ({ children }) => {
 
   const getUsers = async () => {
     const { data } = await axios.get('/users')
+    console.log(data)
     dispatch({ type: 'GET_USERS', payload: data.users })
   }
 
@@ -62,6 +63,7 @@ export const UserProvider = ({ children }) => {
       dispatch({ type: 'REGISTER_ERROR', payload: error.response.data.msg })
     }
   }
+
   return (
     <UserContext.Provider
       value={{

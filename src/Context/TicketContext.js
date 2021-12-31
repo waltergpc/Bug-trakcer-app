@@ -135,6 +135,15 @@ export const TicketProvider = ({ children }) => {
     }
   }
 
+  const unAssignTicket = async (id, deleted) => {
+    try {
+      await axios.patch('/tickets/unassign-ticket', { id, deleted })
+      fetchSingleTicket(id)
+    } catch (error) {
+      console.log(error.response)
+    }
+  }
+
   return (
     <TicketContext.Provider
       value={{
@@ -148,6 +157,7 @@ export const TicketProvider = ({ children }) => {
         createComment,
         deleteComment,
         updateComment,
+        unAssignTicket,
       }}
     >
       {children}

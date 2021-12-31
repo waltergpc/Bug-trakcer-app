@@ -1,6 +1,7 @@
 import React from 'react'
 import moment from 'moment'
 import styled from 'styled-components'
+import { Link } from 'react-router-dom'
 
 const TicketArticle = ({
   title,
@@ -9,13 +10,14 @@ const TicketArticle = ({
   priority,
   category,
   createdBy,
+  id,
 }) => {
   let date = moment(updatedAt)
   date = date.format('L')
 
   return (
     <Wrapper status={status}>
-      <h6>{title}</h6>
+      <Link to={`/tickets/${id}`}>{title}</Link>
       <div className='ticket-specs'>
         <p>Last Update: {date}</p>
         <p>Created by: {createdBy.name}</p>
@@ -38,10 +40,11 @@ const Wrapper = styled.article`
     margin: 0;
   }
 
-  h6 {
+  a {
     margin-top: 0.1rem;
     margin-bottom: 0.7rem;
     font-size: 0.6rem;
+    font-weight: bold;
   }
 
   .ticket-specs {
@@ -50,7 +53,7 @@ const Wrapper = styled.article`
   }
 
   @media (min-width: 900px) {
-    h6 {
+    a {
       font-size: 0.7rem;
     }
 

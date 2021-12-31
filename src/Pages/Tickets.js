@@ -13,7 +13,7 @@ const Tickets = () => {
 
   return (
     <Wrapper className='section section-center'>
-      <h3>{(user.role = 'admin' ? 'All' : team)} tickets</h3>
+      <h3>{user.role === 'admin' ? 'All' : team} tickets</h3>
       <div className='tickets-grid'>
         <FilteredTicketList status='new' />
 

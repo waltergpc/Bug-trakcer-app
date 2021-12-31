@@ -63,6 +63,7 @@ const FilteredTicketList = ({ status }) => {
         return (
           <TicketArticle
             key={id}
+            id={id}
             title={title}
             updatedAt={updatedAt}
             status={status}
