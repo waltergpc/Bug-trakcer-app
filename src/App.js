@@ -10,6 +10,8 @@ import UpdateTicket from './Pages/UpdateTicket'
 import SingleTicket from './Pages/SingleTicket'
 import Team from './Pages/Team'
 import NotFound from './Pages/NotFound'
+import UpdateUser from './Pages/UpdateUser'
+import ChangePassword from './Pages/ChangePassword'
 
 function App() {
   return (
@@ -19,6 +21,8 @@ function App() {
         <Route path='/' element={<Home />} />
         <Route path='login' element={<Login />} />
         <Route path='dashboard' element={<Dashboard />} />
+        <Route path='update-user/:id' element={<UpdateUser />} />
+        <Route path='change-password' element={<ChangePassword />} />
         <Route path='tickets' element={<Tickets />} />
         <Route path='tickets/:id' element={<SingleTicket />} />
         <Route path='create-ticket' element={<CreateTicket />} />

@@ -15,6 +15,7 @@ const initialState = {
   showAlert: false,
   errorMsg: null,
   team: [],
+  updateComplete: false,
 }
 
 export const UserProvider = ({ children }) => {
@@ -52,12 +53,39 @@ export const UserProvider = ({ children }) => {
   }
 
   const login = async (user) => {
+    setUserLoading()
     try {
-      setUserLoading()
       const { data } = await axios.post('/auth/login', { ...user })
       console.log(data)
       dispatch({ type: 'REGISTER_SUCCESS', payload: data.user })
       navigate('/dashboard')
+    } catch (error) {
+      console.log(error.response)
+      dispatch({ type: 'REGISTER_ERROR', payload: error.response.data.msg })
+    }
+  }
+
+  const updateUser = async (user) => {
+    setUserLoading()
+    try {
+      const { data } = await axios.patch('/users/updateUser', { ...user })
+      dispatch({ type: 'REGISTER_SUCCESS', payload: data.user })
+    } catch (error) {
+      console.log(error.response)
+      dispatch({ type: 'REGISTER_ERROR', payload: error.response.data.msg })
+    }
+  }
+
+  const submitImage = async (user, image) => {
+    setUserLoading()
+    try {
+      const { data } = await axios.patch('/users/updateUser', {
+        name: user.name,
+        email: user.email,
+        image: image,
+      })
+      console.log(data)
+      dispatch({ type: 'REGISTER_SUCCESS', payload: data.user })
     } catch (error) {
       console.log(error.response)
       dispatch({ type: 'REGISTER_ERROR', payload: error.response.data.msg })
@@ -74,6 +102,8 @@ export const UserProvider = ({ children }) => {
         login,
         register,
         getUsers,
+        updateUser,
+        submitImage,
       }}
     >
       {children}

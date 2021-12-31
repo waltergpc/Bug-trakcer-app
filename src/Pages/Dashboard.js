@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useUser } from '../Context/UserContext'
-import { Navigate } from 'react-router-dom'
+import { Navigate, Link } from 'react-router-dom'
 import { useTickets } from '../Context/TicketContext'
 import { MdOutlineVerifiedUser } from 'react-icons/md'
 import styled from 'styled-components'
@@ -44,6 +44,12 @@ const Dashboard = () => {
           Email verification pending!
         </h5>
       )}
+      <Link to={`/update-user/${user.userId}`} className='update-link'>
+        Update My Information
+      </Link>
+      <Link to={`/change-password`} className='update-link'>
+        Change my password
+      </Link>
       <div className='my-tickets'>
         <h5 className='tickets-length'>Your Tickets: {ownTickets.length}</h5>
         {ownTickets.map((ticket) => {
@@ -110,13 +116,21 @@ const Wrapper = styled.section`
     font-size: 1rem;
   }
 
+  .update-link {
+    font-size: 0.8rem;
+    margin: 0.5rem;
+    font-weight: bold;
+    color: navy;
+  }
+
   @media (min-width: 900px) {
     grid-template-columns: 1fr 1fr;
 
     .greeting,
     .profile-pic,
     .team,
-    .user-verified {
+    .user-verified,
+    .update-link {
       grid-column: 1/ 2;
     }
 
