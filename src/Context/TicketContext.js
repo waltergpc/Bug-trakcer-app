@@ -16,6 +16,7 @@ const initialState = {
   singleTicket: null,
   showAlert: false,
   ticketErrorMsg: null,
+  singleTicketErrorMsg: null,
   editTicketComplete: false,
 }
 
@@ -42,7 +43,10 @@ export const TicketProvider = ({ children }) => {
         payload: { tickets: data.tickets, id },
       })
     } catch (error) {
-      dispatch({ type: 'GET_ALL_TICKETS_ERROR', payload: error.response.msg })
+      dispatch({
+        type: 'GET_ALL_TICKETS_ERROR',
+        payload: error.response.data.msg,
+      })
       console.log(error.response)
     }
   }
@@ -54,7 +58,10 @@ export const TicketProvider = ({ children }) => {
       console.log(data)
       dispatch({ type: 'GET_SINGLE_TICKET_SUCCESS', payload: data })
     } catch (error) {
-      console.log(error)
+      dispatch({
+        type: 'SINGLE_TICKET_ERROR',
+        payload: error.response.data.msg,
+      })
     }
   }
 
@@ -65,8 +72,10 @@ export const TicketProvider = ({ children }) => {
       fetchTickets()
       navigate('/tickets')
     } catch (error) {
-      dispatch({ type: 'TICKET_ERROR' })
-      console.log(error)
+      dispatch({
+        type: 'GET_ALL_TICKETS_ERROR',
+        payload: error.response.data.msg,
+      })
     }
   }
 
@@ -76,8 +85,10 @@ export const TicketProvider = ({ children }) => {
       await axios.delete(`/tickets/${id}`)
       fetchTickets(user.userId)
     } catch (error) {
-      console.log(error.response)
-      dispatch({ type: 'TICKET_ERROR' })
+      dispatch({
+        type: 'GET_ALL_TICKETS_ERROR',
+        payload: error.response.data.msg,
+      })
     }
   }
 
@@ -99,8 +110,10 @@ export const TicketProvider = ({ children }) => {
       fetchTickets(user.userId)
       endTicketUpdate()
     } catch (error) {
-      dispatch({ type: 'TICKET_ERROR' })
-      console.log(error.response)
+      dispatch({
+        type: 'GET_ALL_TICKETS_ERROR',
+        payload: error.response.data.msg,
+      })
     }
   }
 
@@ -112,7 +125,10 @@ export const TicketProvider = ({ children }) => {
       })
       fetchSingleTicket(ticketId)
     } catch (error) {
-      console.log(error.response)
+      dispatch({
+        type: 'SINGLE_TICKET_ERROR',
+        payload: error.response.data.msg,
+      })
     }
   }
 
@@ -121,7 +137,10 @@ export const TicketProvider = ({ children }) => {
       await axios.delete(`/comments/${commentId}`)
       fetchSingleTicket(ticketId)
     } catch (error) {
-      console.log(error.response)
+      dispatch({
+        type: 'SINGLE_TICKET_ERROR',
+        payload: error.response.data.msg,
+      })
     }
   }
 
@@ -131,7 +150,10 @@ export const TicketProvider = ({ children }) => {
       console.log(data)
       fetchSingleTicket(ticketId)
     } catch (error) {
-      console.log(error.response)
+      dispatch({
+        type: 'SINGLE_TICKET_ERROR',
+        payload: error.response.data.msg,
+      })
     }
   }
 
@@ -140,8 +162,15 @@ export const TicketProvider = ({ children }) => {
       await axios.patch('/tickets/unassign-ticket', { id, deleted })
       fetchSingleTicket(id)
     } catch (error) {
-      console.log(error.response)
+      dispatch({
+        type: 'SINGLE_TICKET_ERROR',
+        payload: error.response.data.msg,
+      })
     }
+  }
+
+  const setSingleTicketError = (response) => {
+    dispatch({ type: 'SINGLE_TICKET_ERROR', payload: response })
   }
 
   return (
@@ -158,6 +187,7 @@ export const TicketProvider = ({ children }) => {
         deleteComment,
         updateComment,
         unAssignTicket,
+        setSingleTicketError,
       }}
     >
       {children}

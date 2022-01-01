@@ -8,7 +8,7 @@ const TicketReducer = (state, action) => {
     case 'GET_ALL_TICKETS_SUCCESS':
       return {
         ...state,
-        isTicketLoading: false,
+        isTicketsLoading: false,
         tickets: [...action.payload.tickets],
         ownTickets: action.payload.tickets.filter((ticket) => {
           return (
@@ -35,12 +35,12 @@ const TicketReducer = (state, action) => {
         ticketErrorMsg: action.payload,
       }
 
-    case 'TICKET_ERROR':
+    case 'SINGLE_TICKET_ERROR':
       return {
         ...state,
         isTicketsLoading: false,
         showAlert: true,
-        ticketErrorMsg:
+        singleTicketErrorMsg:
           'There was an error with the operation, please refrsh and try again',
       }
 

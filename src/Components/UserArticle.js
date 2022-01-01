@@ -3,9 +3,9 @@ import axios from 'axios'
 import { useUser } from '../Context/UserContext'
 import styled from 'styled-components'
 
-const UserArticle = ({ name, id, email, setAssignMsg }) => {
+const UserArticle = ({ name, id, email, currentTeam, setAssignMsg }) => {
   const { user, getUsers } = useUser()
-  const [targetTeam, setTargetTeam] = useState({ ...user.team })
+  const [targetTeam, setTargetTeam] = useState(currentTeam)
 
   const assignTeam = async (e) => {
     e.preventDefault()

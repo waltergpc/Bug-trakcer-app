@@ -8,11 +8,18 @@ import styled from 'styled-components'
 import moment from 'moment'
 import AssignTicketInput from '../Components/AssignTicketInput'
 import { RiDeleteBack2Line } from 'react-icons/ri'
+import Loading from '../Components/Loading'
 
 const SingleTicket = () => {
   const { user } = useUser()
-  const { fetchSingleTicket, singleTicket, deleteTicket, unAssignTicket } =
-    useTickets()
+  const {
+    fetchSingleTicket,
+    singleTicket,
+    singleTicketLoading,
+    deleteTicket,
+    unAssignTicket,
+    singleTicketErrorMsg,
+  } = useTickets()
   const { id } = useParams()
   const [confirmDelete, setConfirmDelete] = useState(false)
   let navigate = useNavigate()
@@ -24,7 +31,7 @@ const SingleTicket = () => {
 
   if (!user) return <Navigate to='/' />
 
-  if (!singleTicket) return <pre>Loading</pre>
+  if (singleTicketLoading || !singleTicket) return <Loading />
 
   const { ticket, comments } = singleTicket
 
@@ -42,6 +49,9 @@ const SingleTicket = () => {
 
   return (
     <Wrapper>
+      {singleTicketErrorMsg && (
+        <div className='error-section'>{singleTicketErrorMsg}</div>
+      )}
       <div className='ticket-info'>
         <h4 className='ticket-title'>{ticket.title}</h4>
         <p className='ticket-created-by'>
@@ -100,7 +110,7 @@ const SingleTicket = () => {
                   : 'confirm-delete-div show'
               }
             >
-              <span>Are you sure you want to delete?</span>
+              <span>Are you sure you want to delete? </span>
               <button
                 type='button'
                 className='delete-ticket-btn'

@@ -1,19 +1,33 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useUser } from '../Context/UserContext'
 import { Navigate } from 'react-router-dom'
 import FilteredTicketList from '../Components/FilteredTicketList'
 import styled from 'styled-components'
+import { useTickets } from '../Context/TicketContext'
+import Loading from '../Components/Loading'
 
 const Tickets = () => {
   const { user } = useUser()
+  const { isTicketsLoading, fetchTickets, ticketErrorMsg } = useTickets()
+
+  useEffect(() => {
+    if (user) {
+      fetchTickets(user.userId)
+    }
+    // eslint-disable-next-line
+  }, [])
 
   if (!user) return <Navigate to='/' />
+
+  if (isTicketsLoading) return <Loading />
 
   const { team } = user
 
   return (
     <Wrapper className='section section-center'>
       <h3>{user.role === 'admin' ? 'All' : team} tickets</h3>
+      <hr />
+      {ticketErrorMsg && <div className='error-section'>{ticketErrorMsg}</div>}
       <div className='tickets-grid'>
         <FilteredTicketList status='new' />
 

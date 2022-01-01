@@ -48,11 +48,12 @@ const Team = () => {
       )}
       <div className='users-list'>
         {filterByTeam(team, teamDisplayed, user).map((member) => {
-          const { _id: id, name, email } = member
+          const { _id: id, name, email, team: currentTeam } = member
           return (
             <UserArticle
               key={id}
               name={name}
+              currentTeam={currentTeam}
               email={email}
               id={id}
               setAssignMsg={setAssignMsg}

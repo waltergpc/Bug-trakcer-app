@@ -7,8 +7,8 @@ import styled from 'styled-components'
 import OwnTicket from '../Components/OwnTicket'
 
 const Dashboard = () => {
-  const { user, getUsers } = useUser()
-  const { fetchTickets, ownTickets } = useTickets()
+  const { user, getUsers, errorMsg } = useUser()
+  const { fetchTickets, ownTickets, ticketErrorMsg } = useTickets()
   //console.log(ownTickets)
 
   useEffect(() => {
@@ -30,6 +30,7 @@ const Dashboard = () => {
   return (
     <Wrapper>
       <h4 className='greeting'>Welcome back {name}</h4>
+      {errorMsg && <div className='error-section user-error'>{errorMsg}</div>}
       <img className='profile-pic' src={image} alt={name} />
       <h5 className='team'>Your team: {team}</h5>
       {verified ? (
@@ -52,6 +53,9 @@ const Dashboard = () => {
       </Link>
       <div className='my-tickets'>
         <h5 className='tickets-length'>Your Tickets: {ownTickets.length}</h5>
+        {ticketErrorMsg && (
+          <div className='error-section ticket-error'>{ticketErrorMsg}</div>
+        )}
         {ownTickets.map((ticket) => {
           const {
             _id: id,
@@ -96,6 +100,10 @@ const Wrapper = styled.section`
     margin-top: 1rem;
   }
 
+  .user-error {
+    margin-bottom: 1rem;
+  }
+
   .profile-pic {
     height: 13rem;
     width: 13rem;
@@ -116,6 +124,16 @@ const Wrapper = styled.section`
     font-size: 1rem;
   }
 
+  .not-verified {
+    font-size: 0.8rem;
+    background-color: #fff7839e;
+    padding: 1rem;
+    border-radius: 1rem;
+    font-weight: bold;
+    color: #885a08;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+  }
+
   .update-link {
     font-size: 0.8rem;
     margin: 0.5rem;
@@ -134,10 +152,18 @@ const Wrapper = styled.section`
       grid-column: 1/ 2;
     }
 
+    .user-error {
+      grid-column: 1/ 3;
+    }
+
     .my-tickets {
       grid-column: 1/3;
       grid-template-columns: 1fr 1fr;
       gap: 2em;
+    }
+
+    .ticket-error {
+      grid-column: 1 / 3;
     }
 
     .tickets-length {

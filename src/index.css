@@ -118,6 +118,20 @@ h1 {
   /*max-width: var(--max-width);*/
 }
 
+.loading-section {
+  height: 50vh;
+}
+
+.error-section {
+  font-size: 0.8rem;
+  background-color: #fff7839e;
+  padding: 1rem;
+  border-radius: 1rem;
+  font-weight: bold;
+  color: #885a08;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+
 @media screen and (min-width: 992px) {
   .section-center {
     width: 70vw;
@@ -136,7 +150,8 @@ h1 {
   width: 6rem;
   height: 6rem;
   margin: 0 auto;
-  margin-top: 10rem;
+  margin-top: 5rem;
+  margin-bottom: 3rem;
   border-radius: 50%;
   border: 4px solid #ccc;
   border-top-color: var(--clr-primary-5);

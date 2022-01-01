@@ -7,7 +7,7 @@ import styled from 'styled-components'
 const AssignTicketInput = ({ id }) => {
   const { team } = useUser()
   const [userToAssign, setUserToAssign] = useState('')
-  const { fetchSingleTicket } = useTickets()
+  const { fetchSingleTicket, setSingleTicketError } = useTickets()
 
   const handleChange = (e) => {
     setUserToAssign(e.target.value)
@@ -24,7 +24,7 @@ const AssignTicketInput = ({ id }) => {
       setUserToAssign('')
       fetchSingleTicket(id)
     } catch (error) {
-      console.log(error.response)
+      setSingleTicketError(error.response.data.msg)
     }
   }
   return (

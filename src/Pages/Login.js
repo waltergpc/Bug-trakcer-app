@@ -2,9 +2,10 @@ import React, { useState } from 'react'
 import { useUser } from '../Context/UserContext'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
+import Loading from '../Components/Loading'
 
 const Login = () => {
-  const { login, register } = useUser()
+  const { login, register, errorMsg, isUserLoading } = useUser()
   const [showLogin, setShowLogin] = useState(true)
   const [user, setUser] = useState({ name: '', email: '', password: '' })
 
@@ -25,6 +26,8 @@ const Login = () => {
   return (
     <Wrapper className='section section-center'>
       <h3>{showLogin ? 'Login' : 'Register'} </h3>
+      {errorMsg && <div className='error-section'>{errorMsg}</div>}
+      {isUserLoading && <Loading />}
       {showLogin ? (
         <p>
           If you don't have a user please register
@@ -96,6 +99,7 @@ const Wrapper = styled.section`
     background-color: #e1be88c7;
     border-radius: 1rem;
     gap: 1rem;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
   }
 
   .login-input {

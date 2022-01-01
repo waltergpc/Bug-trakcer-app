@@ -59,6 +59,7 @@ const TicketForm = ({ id, user }) => {
       category: 'UX',
     })
   }
+
   return (
     <FormWrapper onSubmit={handleTicketSubmit}>
       <label>Ticket Title</label>
