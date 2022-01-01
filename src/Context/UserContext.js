@@ -43,9 +43,10 @@ export const UserProvider = ({ children }) => {
   const register = async (user) => {
     try {
       setUserLoading()
-      const { data } = await axios.post('/auth/login', { ...user })
+      const { data } = await axios.post('/auth/register', { ...user })
       console.log(data)
       dispatch({ type: 'REGISTER_SUCCESS', payload: data.user })
+      navigate('/dashboard')
     } catch (error) {
       console.log(error.response)
       dispatch({ type: 'REGISTER_ERROR', payload: error.response.data.msg })

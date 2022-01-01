@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useUser } from '../Context/UserContext'
 import styled from 'styled-components'
+import { Link } from 'react-router-dom'
 
 const Login = () => {
   const { login, register } = useUser()
@@ -78,6 +79,10 @@ const Login = () => {
           Sign in
         </button>
       </form>
+      <div>
+        If you forgot your password please click{' '}
+        <Link to='/forgot-password'>HERE</Link>
+      </div>
     </Wrapper>
   )
 }

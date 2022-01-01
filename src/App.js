@@ -12,6 +12,9 @@ import Team from './Pages/Team'
 import NotFound from './Pages/NotFound'
 import UpdateUser from './Pages/UpdateUser'
 import ChangePassword from './Pages/ChangePassword'
+import ForgotPassword from './Pages/ForgotPassword'
+import ResetPassword from './Pages/ResetPassword'
+import VerifyAccount from './Pages/VerifyAccount'
 
 function App() {
   return (
@@ -20,6 +23,9 @@ function App() {
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='login' element={<Login />} />
+        <Route path='forgot-password' element={<ForgotPassword />} />
+        <Route path='reset-password' element={<ResetPassword />} />
+        <Route path='verify-account' element={<VerifyAccount />} />
         <Route path='dashboard' element={<Dashboard />} />
         <Route path='update-user/:id' element={<UpdateUser />} />
         <Route path='change-password' element={<ChangePassword />} />
