@@ -55,7 +55,8 @@ export default UserArticle
 const Wrapper = styled.article`
   display: grid;
   grid-template-columns: 1fr 1fr;
-  background-color: #e3dedb;
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
   align-items: center;
   text-align: center;
   font-size: 0.7rem;

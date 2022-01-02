@@ -45,6 +45,7 @@ const OwnTicket = ({
 
 const Wrapper = styled.article`
   border: solid 1px rgba(99, 99, 99, 0.2);
+  background-color: white;
   width: 100%;
   font-size: 0.7rem;
   justify-self: center;

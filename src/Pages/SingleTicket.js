@@ -170,6 +170,7 @@ const Wrapper = styled.section`
     display: grid;
     gap: 1rem;
     justify-content: center;
+    background-color: white;
     border-radius: 1rem;
     font-size: 0.8rem;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
@@ -207,6 +208,7 @@ const Wrapper = styled.section`
 
   .comments {
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    background-color: white;
     margin: 1rem;
     padding: 1rem;
     height: 50vh;

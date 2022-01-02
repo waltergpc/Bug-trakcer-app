@@ -82,9 +82,12 @@ const Login = () => {
           Sign in
         </button>
       </form>
-      <div>
-        If you forgot your password please click{' '}
-        <Link to='/forgot-password'>HERE</Link>
+      <div className='forgot-password'>
+        If you forgot your password please click
+        <br />
+        <Link className='forgot-link' to='/forgot-password'>
+          HERE
+        </Link>
       </div>
     </Wrapper>
   )
@@ -96,7 +99,7 @@ const Wrapper = styled.section`
     padding: 1.5rem;
     display: grid;
     grid-template-columns: 1fr;
-    background-color: #e1be88c7;
+    background-color: #d8c3a5;
     border-radius: 1rem;
     gap: 1rem;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
@@ -137,6 +140,23 @@ const Wrapper = styled.section`
     cursor: pointer;
     text-decoration: underline;
     color: green;
+  }
+
+  .forgot-password {
+    margin-top: 2rem;
+    background-color: #e98074;
+    padding: 1rem;
+    font-size: 0.8rem;
+    border-radius: 1rem;
+    font-weight: 500;
+    color: white;
+    box-shadow: rgba(66, 66, 66, 0.2) 0px 8px 24px;
+  }
+
+  .forgot-link {
+    text-decoration: underline;
+    color: green;
+    font-weight: bold;
   }
 
   @media (min-width: 900px) {

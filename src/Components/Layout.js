@@ -197,11 +197,11 @@ const HeaderWrapper = styled.header`
   }
 `
 const MainWrapper = styled.main`
+  background-color: #eae7dc;
   @media (min-width: 900px) {
     margin-left: 20%;
     padding: 1rem;
     top: 0;
-    height: 100%;
   }
 `
 export default Layout

@@ -21,6 +21,7 @@ const TicketReducer = (state, action) => {
       return {
         ...state,
         singleTicketLoading: false,
+        singleTicketErrorMsg: null,
         singleTicket: {
           ticket: { ...action.payload.ticket },
           comments: [...action.payload.comments],
@@ -41,7 +42,7 @@ const TicketReducer = (state, action) => {
         isTicketsLoading: false,
         showAlert: true,
         singleTicketErrorMsg:
-          'There was an error with the operation, please refrsh and try again',
+          'There was an error with the operation, please refresh and try again',
       }
 
     case 'START_UPDATE':

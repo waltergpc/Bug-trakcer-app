@@ -28,7 +28,7 @@ const Team = () => {
 
   return (
     <Wrapper>
-      <h3>
+      <h3 className='team-title'>
         {user.role === 'admin'
           ? `${teamDisplayed} Users`
           : `${user.team} Users`}
@@ -70,8 +70,13 @@ export default Team
 const Wrapper = styled.section`
   text-align: center;
   .users-list {
-    margin: 1rem;
+    padding: 1rem;
     display: grid;
     gap: 1rem;
+  }
+
+  .team-title {
+    margin-top: 0;
+    padding-top: 2rem;
   }
 `
