@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 import { useUser } from '../Context/UserContext'
 
 const Sidebar = () => {
-  const { sideBarOpen, closeSidebar, user } = useUser()
+  const { sideBarOpen, closeSidebar, user, logout } = useUser()
 
   return (
     <SidebarContainer>
@@ -41,6 +41,25 @@ const Sidebar = () => {
               <Link to='tickets' onClick={closeSidebar}>
                 Ticket Center
               </Link>
+            </li>
+            <li className='list-element'>
+              <Link
+                to='create-ticket'
+                className='nav-link'
+                onClick={closeSidebar}
+              >
+                New Ticket
+              </Link>
+            </li>
+            <li className='list-element'>
+              <Link to='my-team' className='nav-link' onClick={closeSidebar}>
+                My team
+              </Link>
+            </li>
+            <li className='list-element'>
+              <button type='button' className='nav-link' onClick={logout}>
+                Logout
+              </button>
             </li>
           </ul>
         )}

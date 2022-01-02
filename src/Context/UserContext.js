@@ -93,6 +93,19 @@ export const UserProvider = ({ children }) => {
     }
   }
 
+  const logout = async () => {
+    try {
+      const { data } = await axios.delete('/auth/logout')
+      console.log(data)
+      navigate('/')
+      dispatch({ type: 'LOGOUT' })
+    } catch (error) {
+      console.log(error.response.message)
+      navigate('/')
+      dispatch({ type: 'LOGOUT' })
+    }
+  }
+
   return (
     <UserContext.Provider
       value={{
@@ -105,6 +118,7 @@ export const UserProvider = ({ children }) => {
         getUsers,
         updateUser,
         submitImage,
+        logout,
       }}
     >
       {children}

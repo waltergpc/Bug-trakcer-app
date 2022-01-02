@@ -23,6 +23,8 @@ const UserReducer = (state, action) => {
       }
     case 'GET_USERS':
       return { ...state, team: [...action.payload] }
+    case 'LOGOUT':
+      return { ...state, user: null, team: [] }
     default:
       return state
   }
