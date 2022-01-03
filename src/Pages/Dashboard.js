@@ -5,6 +5,7 @@ import { useTickets } from '../Context/TicketContext'
 import { MdOutlineVerifiedUser } from 'react-icons/md'
 import styled from 'styled-components'
 import OwnTicket from '../Components/OwnTicket'
+import TicketChart from '../Components/TicketChart'
 
 const Dashboard = () => {
   const { user, getUsers, errorMsg } = useUser()
@@ -51,6 +52,9 @@ const Dashboard = () => {
       <Link to={`/change-password`} className='update-link'>
         Change my password
       </Link>
+      <div className='chart-div'>
+        <TicketChart data={ownTickets} page='own' />
+      </div>
       <div className='my-tickets'>
         <h5 className='tickets-length'>Your Tickets: {ownTickets.length}</h5>
         {ticketErrorMsg && (
@@ -110,6 +114,10 @@ const Wrapper = styled.section`
     border-radius: 50%;
   }
 
+  .chart-div {
+    width: 70%;
+  }
+
   .my-tickets {
     text-align: center;
     width: 80%;
@@ -154,6 +162,12 @@ const Wrapper = styled.section`
 
     .user-error {
       grid-column: 1/ 3;
+    }
+
+    .chart-div {
+      grid-column: 2 / 3;
+      grid-row: 2 / 5;
+      width: 80%;
     }
 
     .my-tickets {

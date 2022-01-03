@@ -35,7 +35,7 @@ const FilteredTicketList = ({ status }) => {
     )
   return (
     <Wrapper>
-      <h5>{capitalStatus} Tickets</h5>
+      <h5 className='column-title'>{capitalStatus} Tickets</h5>
       <select
         value={sort}
         onChange={(e) => setSort(e.target.value)}
@@ -82,9 +82,12 @@ export default FilteredTicketList
 const Wrapper = styled.div`
   text-align: center;
   border-radius: 1rem;
-  background-color: lightgrey;
+  background-color: rgb(80, 78, 78);
   width: 100%;
   padding: 0.7rem;
+  .column-title {
+    color: white;
+  }
   .sort-select {
     margin: 0 auto;
   }

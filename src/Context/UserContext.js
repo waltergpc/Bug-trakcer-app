@@ -71,6 +71,7 @@ export const UserProvider = ({ children }) => {
     try {
       const { data } = await axios.patch('/users/updateUser', { ...user })
       dispatch({ type: 'REGISTER_SUCCESS', payload: data.user })
+      navigate('/dashboard')
     } catch (error) {
       console.log(error.response)
       dispatch({ type: 'REGISTER_ERROR', payload: error.response.data.msg })

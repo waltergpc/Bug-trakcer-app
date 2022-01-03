@@ -5,10 +5,13 @@ import FilteredTicketList from '../Components/FilteredTicketList'
 import styled from 'styled-components'
 import { useTickets } from '../Context/TicketContext'
 import Loading from '../Components/Loading'
+import TicketChart from '../Components/TicketChart'
+import TicketLabels from '../Components/TicketLabels'
 
 const Tickets = () => {
   const { user } = useUser()
-  const { isTicketsLoading, fetchTickets, ticketErrorMsg } = useTickets()
+  const { isTicketsLoading, fetchTickets, ticketErrorMsg, tickets } =
+    useTickets()
 
   useEffect(() => {
     if (user) {
@@ -28,6 +31,7 @@ const Tickets = () => {
       <h3>{user.role === 'admin' ? 'All' : team} tickets</h3>
       <hr />
       {ticketErrorMsg && <div className='error-section'>{ticketErrorMsg}</div>}
+      <TicketLabels />
       <div className='tickets-grid'>
         <FilteredTicketList status='new' />
 
@@ -38,6 +42,9 @@ const Tickets = () => {
         <FilteredTicketList status='solved' />
 
         <FilteredTicketList status='cancelled' />
+      </div>
+      <div className='chart-div'>
+        <TicketChart data={tickets} page='team' />
       </div>
     </Wrapper>
   )
@@ -57,11 +64,21 @@ const Wrapper = styled.section`
     overflow-x: scroll;
   }
 
+  .chart-div {
+    width: 90%;
+    padding-left: 1rem;
+    padding-top: 2rem;
+  }
+
   @media (min-width: 900px) {
     .tickets-grid {
       grid-template-columns: 15rem 15rem 15rem 15rem 15rem;
       width: 95%;
       font-size: 0.8rem;
+    }
+    .chart-div {
+      width: 95%;
+      padding-left: 1.2rem;
     }
   }
 `

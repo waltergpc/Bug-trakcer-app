@@ -3,7 +3,7 @@ import axios from 'axios'
 import { useUser } from '../Context/UserContext'
 import styled from 'styled-components'
 
-const UserArticle = ({ name, id, email, currentTeam, setAssignMsg }) => {
+const UserArticle = ({ name, id, email, currentTeam, setAssignMsg, image }) => {
   const { user, getUsers } = useUser()
   const [targetTeam, setTargetTeam] = useState(currentTeam)
 
@@ -30,7 +30,10 @@ const UserArticle = ({ name, id, email, currentTeam, setAssignMsg }) => {
 
   return (
     <Wrapper className='user-article'>
-      <p>{name}</p>
+      <div>
+        <img className='avatar' src={image} alt='name' />
+        <p>{name}</p>
+      </div>
       <p>{email}</p>
       {user.role === 'admin' && (
         <form onSubmit={assignTeam} className='team-form'>
@@ -55,7 +58,7 @@ export default UserArticle
 const Wrapper = styled.article`
   display: grid;
   grid-template-columns: 1fr 1fr;
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.5);
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
   align-items: center;
   text-align: center;
@@ -83,6 +86,12 @@ const Wrapper = styled.article`
 
   .assign-btn:hover {
     color: orange;
+  }
+
+  .avatar {
+    height: 3rem;
+    width: 3rem;
+    border-radius: 50%;
   }
 
   @media (min-width: 900px) {
