@@ -30,7 +30,7 @@ const FilteredTicketList = ({ status }) => {
   if (filteredByStatus.length < 1)
     return (
       <Wrapper>
-        <h5>No {capitalStatus} Tickets</h5>
+        <h5 className='column-title'>No {capitalStatus} Tickets</h5>
       </Wrapper>
     )
   return (

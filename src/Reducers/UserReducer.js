@@ -23,6 +23,25 @@ const UserReducer = (state, action) => {
       }
     case 'GET_USERS':
       return { ...state, team: [...action.payload] }
+
+    case 'UPDATE_USER':
+      return {
+        ...state,
+        isUserLoading: false,
+        user: { ...action.payload },
+        showAlert: false,
+        updateMsg: 'Update succesful',
+        updateUserComplete: true,
+      }
+    case 'UPDATE_USER_ERROR':
+      return {
+        ...state,
+        updateMsg: action.payload,
+        updateUserComplete: true,
+        isUserLoading: false,
+      }
+    case 'START_USER_UPDATE':
+      return { ...state, updateUserComplete: false }
     case 'LOGOUT':
       return { ...state, user: null, team: [] }
     default:

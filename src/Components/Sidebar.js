@@ -95,6 +95,7 @@ const SidebarContainer = styled.div`
   .links {
     margin-bottom: 2rem;
     list-style: none;
+    padding-left: 0;
   }
   .logout,
   .links a {
@@ -103,19 +104,19 @@ const SidebarContainer = styled.div`
     font-size: 1rem;
     font-weight: bold;
     text-transform: capitalize;
-    padding: 1rem 1.5rem;
+    padding: 1rem 0;
+    margin-left: 0;
     color: beige;
     transition: all 0.2s linear;
     text-decoration: none;
-    width: 30%;
+    width: 100%;
+    text-align: center;
     cursor: pointer;
   }
   .logout:hover,
   .links a:hover {
-    padding: 1rem 1.5rem;
-    padding-left: 2rem;
     background: rgb(211, 222, 232, 0.1);
-    color: green;
+    color: #f13c20;
   }
   .sidebar {
     position: fixed;
@@ -126,8 +127,8 @@ const SidebarContainer = styled.div`
     transition: var(--transition);
     transform: translate(-100%);
     z-index: -1;
-    background-color: rgb(168, 105, 0);
-    color: beige;
+    background-color: #116466;
+    color: #eae7dc;
   }
   .show-sidebar {
     transform: translate(0);

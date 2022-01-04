@@ -35,6 +35,7 @@ const Wrapper = styled.div`
   .category-label {
     font-size: 0.8rem;
     display: flex;
+    justify-content: center;
   }
 
   .color-label {

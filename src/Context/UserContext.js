@@ -15,7 +15,8 @@ const initialState = {
   showAlert: false,
   errorMsg: null,
   team: [],
-  updateComplete: false,
+  updateUserComplete: false,
+  updateMsg: null,
 }
 
 export const UserProvider = ({ children }) => {
@@ -57,7 +58,21 @@ export const UserProvider = ({ children }) => {
     setUserLoading()
     try {
       const { data } = await axios.post('/auth/login', { ...user })
-      console.log(data)
+      dispatch({ type: 'REGISTER_SUCCESS', payload: data.user })
+      navigate('/dashboard')
+    } catch (error) {
+      console.log(error.response)
+      dispatch({ type: 'REGISTER_ERROR', payload: error.response.data.msg })
+    }
+  }
+
+  const demoLogin = async () => {
+    setUserLoading()
+    try {
+      const { data } = await axios.post('/auth/login', {
+        email: 'demouser@demouser.com',
+        password: 'demouser123',
+      })
       dispatch({ type: 'REGISTER_SUCCESS', payload: data.user })
       navigate('/dashboard')
     } catch (error) {
@@ -70,11 +85,10 @@ export const UserProvider = ({ children }) => {
     setUserLoading()
     try {
       const { data } = await axios.patch('/users/updateUser', { ...user })
-      dispatch({ type: 'REGISTER_SUCCESS', payload: data.user })
-      navigate('/dashboard')
+      dispatch({ type: 'UPDATE_USER', payload: data.user })
     } catch (error) {
       console.log(error.response)
-      dispatch({ type: 'REGISTER_ERROR', payload: error.response.data.msg })
+      dispatch({ type: 'UPDATE_USER_ERROR', payload: error.response.data.msg })
     }
   }
 
@@ -87,10 +101,10 @@ export const UserProvider = ({ children }) => {
         image: image,
       })
       console.log(data)
-      dispatch({ type: 'REGISTER_SUCCESS', payload: data.user })
+      dispatch({ type: 'UPDATE_USER', payload: data.user })
     } catch (error) {
       console.log(error.response)
-      dispatch({ type: 'REGISTER_ERROR', payload: error.response.data.msg })
+      dispatch({ type: 'UPDATE_USER_ERROR', payload: error.response.data.msg })
     }
   }
 
@@ -107,6 +121,10 @@ export const UserProvider = ({ children }) => {
     }
   }
 
+  const startUserUpdate = () => {
+    dispatch({ type: 'START_USER_UPDATE' })
+  }
+
   return (
     <UserContext.Provider
       value={{
@@ -115,10 +133,12 @@ export const UserProvider = ({ children }) => {
         closeSidebar,
         setUserLoading,
         login,
+        demoLogin,
         register,
         getUsers,
         updateUser,
         submitImage,
+        startUserUpdate,
         logout,
       }}
     >

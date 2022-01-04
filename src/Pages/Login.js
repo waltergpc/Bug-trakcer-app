@@ -3,9 +3,10 @@ import { useUser } from '../Context/UserContext'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import Loading from '../Components/Loading'
+import { AiOutlineUserAdd } from 'react-icons/ai'
 
 const Login = () => {
-  const { login, register, errorMsg, isUserLoading } = useUser()
+  const { login, demoLogin, register, errorMsg, isUserLoading } = useUser()
   const [showLogin, setShowLogin] = useState(true)
   const [user, setUser] = useState({ name: '', email: '', password: '' })
 
@@ -22,6 +23,11 @@ const Login = () => {
       register({ ...user })
     }
     setUser({ name: '', email: '', password: '' })
+  }
+
+  const submitDemoLogin = (e) => {
+    e.preventDefault()
+    demoLogin()
   }
   return (
     <Wrapper className='section section-center'>
@@ -89,12 +95,19 @@ const Login = () => {
           HERE
         </Link>
       </div>
+      <button type='submit' className='demo-btn' onClick={submitDemoLogin}>
+        <AiOutlineUserAdd /> User Demo Login
+      </button>
     </Wrapper>
   )
 }
 
 const Wrapper = styled.section`
   text-align: center;
+
+  h3 {
+    margin-top: 0;
+  }
   .sign-form {
     padding: 1.5rem;
     display: grid;
@@ -159,11 +172,30 @@ const Wrapper = styled.section`
     font-weight: bold;
   }
 
+  .demo-btn {
+    margin-top: 1rem;
+    padding: 1rem;
+    background-color: #5c7179;
+    border: none;
+    color: white;
+    font-weight: bold;
+    border-radius: 1rem;
+    cursor: pointer;
+    transition: var(--transition);
+  }
+
+  .demo-btn:hover {
+    color: orange;
+  }
   @media (min-width: 900px) {
     width: 60%;
 
     .toggle-login {
       font-size: 1rem;
+    }
+
+    .demo-btn {
+      margin-top: 1.5rem;
     }
   }
 `

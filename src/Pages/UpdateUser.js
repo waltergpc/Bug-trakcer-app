@@ -3,13 +3,22 @@ import { useNavigate, Navigate, useParams } from 'react-router-dom'
 import { useUser } from '../Context/UserContext'
 import axios from 'axios'
 import styled from 'styled-components'
+import UserUpdatePop from '../Components/UserUpdatePop'
 
 const UpdateUser = () => {
   let navigate = useNavigate()
-  const { user, updateUser, submitImage } = useUser()
+  const {
+    user,
+    updateUser,
+    submitImage,
+    startUserUpdate,
+    updateUserComplete,
+    updateMsg,
+  } = useUser()
   const { id } = useParams()
   const [editUser, setEditUser] = useState({ name: '', email: '' })
   const [image, setImage] = useState(null)
+  const [error, setError] = useState(null)
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -22,9 +31,11 @@ const UpdateUser = () => {
     }
     if (user) {
       if (user.userId === id) {
+        startUserUpdate()
         setEditUser({ name: user.name, email: user.email })
       }
       if (!user.userId === id && user.role === 'admin') {
+        startUserUpdate()
         fetchUser()
       }
       if (!user.userId === id && !user.role === 'admin') {
@@ -51,7 +62,7 @@ const UpdateUser = () => {
       console.log(data)
       setImage(data)
     } catch (error) {
-      console.log(error.response)
+      setError(error.response.data.msg)
     }
   }
 
@@ -68,6 +79,10 @@ const UpdateUser = () => {
 
   return (
     <Wrapper>
+      <UserUpdatePop
+        updateUserComplete={updateUserComplete}
+        updateMsg={updateMsg}
+      />
       <form onSubmit={submitUpdate} className='update-form'>
         <h4 className='form-title'>Update Name or email</h4>
         <input
@@ -95,6 +110,8 @@ const UpdateUser = () => {
       <form onSubmit={imageSubmit} className='update-form'>
         <h4 className='form-title'>Upload profile picture</h4>
         <input type='file' onChange={uploadImage} />
+        {image && <div className='image-success'>Image ready to submit</div>}
+        {error && <div className='image-error'>{error}</div>}
         <button type='submit' disabled={!image} className='submit-btn'>
           Save Image
         </button>
@@ -107,7 +124,7 @@ export default UpdateUser
 
 const Wrapper = styled.section`
   display: grid;
-  padding: 5rem 1rem 0 1rem;
+  padding: 3.5rem 1rem 0 1rem;
   gap: 2rem;
 
   .update-form {
@@ -132,6 +149,22 @@ const Wrapper = styled.section`
     margin: 0;
     color: white;
     justify-self: center;
+  }
+
+  .image-error {
+    font-size: 0.7rem;
+    background-color: #fff7839e;
+    padding: 0.7rem;
+    border-radius: 1rem;
+    font-weight: bold;
+    color: #885a08;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+  }
+
+  .image-success {
+    font-size: 0.7rem;
+    color: forestgreen;
+    font-weight: bold;
   }
   .submit-btn {
     justify-self: center;

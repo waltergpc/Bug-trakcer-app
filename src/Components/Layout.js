@@ -7,6 +7,9 @@ import {
   AiOutlineDashboard,
   AiFillCaretDown,
   AiFillCaretUp,
+  AiOutlineHome,
+  AiOutlineUserAdd,
+  AiOutlineUserDelete,
 } from 'react-icons/ai'
 import { TiTicket, TiPlus } from 'react-icons/ti'
 import { MdBusinessCenter } from 'react-icons/md'
@@ -30,14 +33,14 @@ const Layout = ({ children }) => {
               <li className='list-element'>
                 <div className='nav-div'>
                   <Link to='/' className='nav-link'>
-                    Home
+                    <AiOutlineHome /> Home
                   </Link>
                 </div>
               </li>
               <li className='list-element'>
                 <div className='nav-div'>
                   <Link to='login' className='nav-link'>
-                    Sign in
+                    <AiOutlineUserAdd /> Sign in
                   </Link>
                 </div>
               </li>
@@ -87,8 +90,8 @@ const Layout = ({ children }) => {
               </li>
               <li className='list-element'>
                 <div className='nav-div'>
-                  <button type='button' className='nav-link' onClick={logout}>
-                    Logout
+                  <button type='button' className='logout-btn' onClick={logout}>
+                    <AiOutlineUserDelete /> Logout
                   </button>
                 </div>
               </li>
@@ -129,7 +132,7 @@ const HeaderWrapper = styled.header`
   }
 
   .sidebar-btn:hover {
-    color: teal;
+    color: #f13c20;
   }
 
   .navbar {
@@ -174,6 +177,16 @@ const HeaderWrapper = styled.header`
     }
     .nav-link {
       font-weight: bold;
+    }
+
+    .logout-btn {
+      background-color: transparent;
+      font-weight: bold;
+      border: none;
+      color: inherit;
+      font-size: inherit;
+      padding: 0;
+      cursor: pointer;
     }
 
     .accordion-title {
