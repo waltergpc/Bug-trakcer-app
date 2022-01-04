@@ -26,6 +26,7 @@ const TicketReducer = (state, action) => {
           ticket: { ...action.payload.ticket },
           comments: [...action.payload.comments],
         },
+        commentError: null,
       }
     case 'GET_ALL_TICKETS_ERROR':
       return {
@@ -40,9 +41,10 @@ const TicketReducer = (state, action) => {
       return {
         ...state,
         isTicketsLoading: false,
+        singleTicketLoading: false,
         showAlert: true,
         singleTicketErrorMsg:
-          'There was an error with the operation, please refresh and try again',
+          'There was an error with the operation, please try again',
       }
 
     case 'START_UPDATE':
@@ -50,6 +52,15 @@ const TicketReducer = (state, action) => {
 
     case 'END_UPDATE':
       return { ...state, editTicketComplete: true }
+
+    case 'COMMENT_ERROR':
+      return {
+        ...state,
+        isTicketsLoading: false,
+        singleTicketLoading: false,
+        showAlert: true,
+        commentError: action.payload,
+      }
     default:
       return state
   }

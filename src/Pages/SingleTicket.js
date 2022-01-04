@@ -19,6 +19,7 @@ const SingleTicket = () => {
     deleteTicket,
     unAssignTicket,
     singleTicketErrorMsg,
+    commentError,
   } = useTickets()
   const { id } = useParams()
   const [confirmDelete, setConfirmDelete] = useState(false)
@@ -149,6 +150,7 @@ const SingleTicket = () => {
           })
         )}
       </div>
+      {commentError && <div className='error-section'>{commentError}</div>}
       <CommentForm ticketId={id} />
     </Wrapper>
   )

@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { FaTimes } from 'react-icons/fa'
-import logo from '../images/logo.png'
+import logo from '../images/ScarabLogo.png'
 import { Link } from 'react-router-dom'
 import { useUser } from '../Context/UserContext'
 

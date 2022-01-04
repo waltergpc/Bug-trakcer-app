@@ -13,6 +13,7 @@ import {
 } from 'react-icons/ai'
 import { TiTicket, TiPlus } from 'react-icons/ti'
 import { MdBusinessCenter } from 'react-icons/md'
+import logo from '../images/ScarabLogo.png'
 
 const Layout = ({ children }) => {
   const { openSidebar, user, logout } = useUser()
@@ -22,7 +23,11 @@ const Layout = ({ children }) => {
     <>
       <HeaderWrapper>
         <div className='main-header'>
-          <h1>Scarab IO</h1>
+          <div className='title-div'>
+            <h1 className='app-name'>Scarab IO</h1>
+            <img className='logo' src={logo} alt='scarabio' />
+          </div>
+
           <button type='button' className='sidebar-btn' onClick={openSidebar}>
             <RiMenuFill />
           </button>
@@ -117,6 +122,16 @@ const HeaderWrapper = styled.header`
     align-items: center;
     align-content: center;
     padding: 0 0.5rem;
+  }
+
+  .title-div {
+    display: flex;
+    align-items: center;
+  }
+
+  .logo {
+    width: 3rem;
+    height: 3rem;
   }
 
   .sidebar-btn {

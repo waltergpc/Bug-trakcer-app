@@ -18,6 +18,7 @@ const initialState = {
   ticketErrorMsg: null,
   singleTicketErrorMsg: null,
   editTicketComplete: false,
+  commentError: null,
 }
 
 export const TicketProvider = ({ children }) => {
@@ -126,7 +127,7 @@ export const TicketProvider = ({ children }) => {
       fetchSingleTicket(ticketId)
     } catch (error) {
       dispatch({
-        type: 'SINGLE_TICKET_ERROR',
+        type: 'COMMENT_ERROR',
         payload: error.response.data.msg,
       })
     }

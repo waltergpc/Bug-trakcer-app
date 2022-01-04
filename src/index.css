@@ -56,6 +56,9 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.font-link {
+  font-family: 'Teko', sans-serif;
+}
 ul {
   list-style-type: none;
 }
