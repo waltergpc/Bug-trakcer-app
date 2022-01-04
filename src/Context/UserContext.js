@@ -24,7 +24,7 @@ export const UserProvider = ({ children }) => {
   let navigate = useNavigate()
 
   const getUsers = async () => {
-    const { data } = await axios.get('/users')
+    const { data } = await axios.get('/api/v1/users')
     console.log(data)
     dispatch({ type: 'GET_USERS', payload: data.users })
   }
@@ -44,7 +44,7 @@ export const UserProvider = ({ children }) => {
   const register = async (user) => {
     try {
       setUserLoading()
-      const { data } = await axios.post('/auth/register', { ...user })
+      const { data } = await axios.post('/api/v1/auth/register', { ...user })
       console.log(data)
       dispatch({ type: 'REGISTER_SUCCESS', payload: data.user })
       navigate('/dashboard')
@@ -57,7 +57,7 @@ export const UserProvider = ({ children }) => {
   const login = async (user) => {
     setUserLoading()
     try {
-      const { data } = await axios.post('/auth/login', { ...user })
+      const { data } = await axios.post('/api/v1/auth/login', { ...user })
       dispatch({ type: 'REGISTER_SUCCESS', payload: data.user })
       navigate('/dashboard')
     } catch (error) {
@@ -69,7 +69,7 @@ export const UserProvider = ({ children }) => {
   const demoLogin = async () => {
     setUserLoading()
     try {
-      const { data } = await axios.post('/auth/login', {
+      const { data } = await axios.post('/api/v1/auth/login', {
         email: 'demouser@demouser.com',
         password: 'demouser123',
       })
@@ -84,7 +84,9 @@ export const UserProvider = ({ children }) => {
   const updateUser = async (user) => {
     setUserLoading()
     try {
-      const { data } = await axios.patch('/users/updateUser', { ...user })
+      const { data } = await axios.patch('/api/v1/users/updateUser', {
+        ...user,
+      })
       dispatch({ type: 'UPDATE_USER', payload: data.user })
     } catch (error) {
       console.log(error.response)
@@ -95,7 +97,7 @@ export const UserProvider = ({ children }) => {
   const submitImage = async (user, image) => {
     setUserLoading()
     try {
-      const { data } = await axios.patch('/users/updateUser', {
+      const { data } = await axios.patch('/api/v1/users/updateUser', {
         name: user.name,
         email: user.email,
         image: image,
@@ -110,7 +112,7 @@ export const UserProvider = ({ children }) => {
 
   const logout = async () => {
     try {
-      const { data } = await axios.delete('/auth/logout')
+      const { data } = await axios.delete('/api/v1/auth/logout')
       console.log(data)
       navigate('/')
       dispatch({ type: 'LOGOUT' })

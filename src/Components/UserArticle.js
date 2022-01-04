@@ -10,7 +10,7 @@ const UserArticle = ({ name, id, email, currentTeam, setAssignMsg, image }) => {
   const assignTeam = async (e) => {
     e.preventDefault()
     try {
-      const data = await axios.patch('/users/assignteam', {
+      const data = await axios.patch('/api/v1/users/assignteam', {
         toAssign: id,
         team: targetTeam,
       })

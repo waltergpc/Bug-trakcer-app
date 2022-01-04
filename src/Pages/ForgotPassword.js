@@ -10,7 +10,7 @@ const ForgotPassword = () => {
   const submitPasswordReset = async (e) => {
     e.preventDefault()
     try {
-      const { data } = await axios.post('/auth/forgot-password', {
+      const { data } = await axios.post('/api/v1/auth/forgot-password', {
         email: email,
       })
       console.log(data)

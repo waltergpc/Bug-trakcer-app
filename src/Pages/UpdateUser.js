@@ -22,7 +22,7 @@ const UpdateUser = () => {
 
   useEffect(() => {
     const fetchUser = async () => {
-      const { data } = await axios.get(`users/${id}`)
+      const { data } = await axios.get(`/api/v1/users/${id}`)
       setEditUser({
         name: data.user.name,
         email: data.user.email,
@@ -58,7 +58,7 @@ const UpdateUser = () => {
     formData.append('image', e.target.files[0])
     formData.append('folder', 'user-image')
     try {
-      const { data } = await axios.post('/tickets/uploadimage', formData)
+      const { data } = await axios.post('/api/v1/tickets/uploadimage', formData)
       console.log(data)
       setImage(data)
     } catch (error) {

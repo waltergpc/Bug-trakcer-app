@@ -27,7 +27,7 @@ const ChangePassword = () => {
       return
     }
     try {
-      const { data } = await axios.patch('/users//updateUserPassword', {
+      const { data } = await axios.patch('/api/v1/users//updateUserPassword', {
         oldPassword: passwords.oldPassword,
         newPassword: passwords.newPassword,
       })

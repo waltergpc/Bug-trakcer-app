@@ -10,7 +10,7 @@ const VerifyAccount = () => {
   useEffect(() => {
     const sendVerifyEmail = async () => {
       try {
-        const { data } = await axios.post('/auth/verify-email', {
+        const { data } = await axios.post('/api/v1/auth/verify-email', {
           email: searchParams.get('email'),
           verificationToken: searchParams.get('verificationToken'),
         })

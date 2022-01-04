@@ -17,7 +17,7 @@ const AssignTicketInput = ({ id }) => {
   const addAssignedUser = async (e) => {
     e.preventDefault()
     try {
-      await axios.patch('/tickets/assign-ticket', {
+      await axios.patch('/api/v1/tickets/assign-ticket', {
         id: id,
         assignedTo: userToAssign,
       })

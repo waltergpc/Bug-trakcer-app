@@ -10,7 +10,7 @@ const CommentForm = ({ ticketId, editId, turnEdit }) => {
   useEffect(() => {
     if (editId) {
       const fetchSingleComment = async (id) => {
-        const { data } = await axios.get(`/comments/${id}`)
+        const { data } = await axios.get(`/api/v1/comments/${id}`)
         console.log(data)
         setNewComment({
           title: data.comment.title,

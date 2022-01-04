@@ -18,7 +18,7 @@ const TicketForm = ({ id, user }) => {
   useEffect(() => {
     if (id) {
       const getSingleTicket = async () => {
-        const { data } = await axios.get(`/tickets/${id}`)
+        const { data } = await axios.get(`/api/v1/tickets/${id}`)
         if (
           !data.ticket.createdBy._id === user.userId ||
           !user.role === ('admin' || 'leader')

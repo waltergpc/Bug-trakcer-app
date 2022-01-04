@@ -21,7 +21,7 @@ const ResetPassword = () => {
       return
     }
     try {
-      const { data } = await axios.post('/auth/reset-password', {
+      const { data } = await axios.post('/api/v1/auth/reset-password', {
         email: searchParams.get('email'),
         token: searchParams.get('verificationToken'),
         password: changedPassword.newPassword,

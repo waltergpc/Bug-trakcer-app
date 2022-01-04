@@ -37,7 +37,7 @@ export const TicketProvider = ({ children }) => {
   const fetchTickets = async (id) => {
     setTicketLoading()
     try {
-      const { data } = await axios.get('/tickets')
+      const { data } = await axios.get('/api/v1/tickets')
       console.log(data)
       dispatch({
         type: 'GET_ALL_TICKETS_SUCCESS',
@@ -55,7 +55,7 @@ export const TicketProvider = ({ children }) => {
   const fetchSingleTicket = async (id) => {
     setSingleTicketLoading()
     try {
-      const { data } = await axios.get(`/tickets/${id}`)
+      const { data } = await axios.get(`/api/v1/tickets/${id}`)
       console.log(data)
       dispatch({ type: 'GET_SINGLE_TICKET_SUCCESS', payload: data })
     } catch (error) {
@@ -68,7 +68,7 @@ export const TicketProvider = ({ children }) => {
 
   const createTicket = async (ticket) => {
     try {
-      const data = await axios.post('/tickets', { ...ticket })
+      const data = await axios.post('/api/v1/tickets', { ...ticket })
       console.log(data)
       fetchTickets()
       navigate('/tickets')
@@ -83,7 +83,7 @@ export const TicketProvider = ({ children }) => {
   const deleteTicket = async (id) => {
     setTicketLoading()
     try {
-      await axios.delete(`/tickets/${id}`)
+      await axios.delete(`/api/v1/tickets/${id}`)
       fetchTickets(user.userId)
     } catch (error) {
       dispatch({
@@ -106,7 +106,7 @@ export const TicketProvider = ({ children }) => {
   const updateTicket = async (id, ticket) => {
     setTicketLoading()
     try {
-      const { data } = await axios.patch(`/tickets/${id}`, { ...ticket })
+      const { data } = await axios.patch(`/api/v1/tickets/${id}`, { ...ticket })
       console.log(data)
       fetchTickets(user.userId)
       endTicketUpdate()
@@ -120,7 +120,7 @@ export const TicketProvider = ({ children }) => {
 
   const createComment = async (ticketId, comment) => {
     try {
-      await axios.post('/comments', {
+      await axios.post('/api/v1/comments', {
         ...comment,
         ticket: ticketId,
       })
@@ -135,7 +135,7 @@ export const TicketProvider = ({ children }) => {
 
   const deleteComment = async (commentId, ticketId) => {
     try {
-      await axios.delete(`/comments/${commentId}`)
+      await axios.delete(`/api/v1/comments/${commentId}`)
       fetchSingleTicket(ticketId)
     } catch (error) {
       dispatch({
@@ -147,7 +147,9 @@ export const TicketProvider = ({ children }) => {
 
   const updateComment = async (commentId, comment, ticketId) => {
     try {
-      const data = await axios.patch(`/comments/${commentId}`, { ...comment })
+      const data = await axios.patch(`/api/v1/comments/${commentId}`, {
+        ...comment,
+      })
       console.log(data)
       fetchSingleTicket(ticketId)
     } catch (error) {
@@ -160,7 +162,7 @@ export const TicketProvider = ({ children }) => {
 
   const unAssignTicket = async (id, deleted) => {
     try {
-      await axios.patch('/tickets/unassign-ticket', { id, deleted })
+      await axios.patch('/api/v1/tickets/unassign-ticket', { id, deleted })
       fetchSingleTicket(id)
     } catch (error) {
       dispatch({
