@@ -63,9 +63,7 @@ const ResetPassword = () => {
       <button
         type='submit'
         className='submit-btn'
-        disabled={
-          !changedPassword.newPassword || changedPassword.confirmedPassword
-        }
+        disabled={!changedPassword.newPassword}
       >
         Reset Password
       </button>
