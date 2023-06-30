@@ -5,6 +5,7 @@ import { useTickets } from '../Context/TicketContext'
 import { MdOutlineVerifiedUser } from 'react-icons/md'
 import styled from 'styled-components'
 import OwnTicket from '../Components/OwnTicket'
+import TicketReChart from '../Components/TicketReChart'
 
 const Dashboard = () => {
 	const { user, getUsers, errorMsg } = useUser()
@@ -52,7 +53,7 @@ const Dashboard = () => {
 				Change my password
 			</Link>
 			<div className="chart-div">
-				<h3>Charts are being redesigned</h3>
+				<TicketReChart data={ownTickets} page="own" />
 			</div>
 			<div className="my-tickets">
 				<h5 className="tickets-length">Your Tickets: {ownTickets.length}</h5>
@@ -115,6 +116,7 @@ const Wrapper = styled.section`
 
 	.chart-div {
 		width: 70%;
+		background-color: rgba(0, 76, 78, 0.96);
 	}
 
 	.my-tickets {

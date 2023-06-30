@@ -6,10 +6,12 @@ import styled from 'styled-components'
 import { useTickets } from '../Context/TicketContext'
 import Loading from '../Components/Loading'
 import TicketLabels from '../Components/TicketLabels'
+import TicketReChart from '../Components/TicketReChart'
 
 const Tickets = () => {
 	const { user } = useUser()
-	const { isTicketsLoading, fetchTickets, ticketErrorMsg } = useTickets()
+	const { isTicketsLoading, fetchTickets, ticketErrorMsg, tickets } =
+		useTickets()
 
 	useEffect(() => {
 		if (user) {
@@ -42,7 +44,7 @@ const Tickets = () => {
 				<FilteredTicketList status="cancelled" />
 			</div>
 			<div className="chart-div">
-				<h3>Charts are being redesigned</h3>
+				<TicketReChart data={tickets} page="team" />
 			</div>
 		</Wrapper>
 	)
@@ -66,6 +68,8 @@ const Wrapper = styled.section`
 		width: 90%;
 		padding-left: 1rem;
 		padding-top: 2rem;
+		background-color: rgba(0, 76, 78, 0.96);
+		height: 20rem;
 	}
 
 	@media (min-width: 900px) {
